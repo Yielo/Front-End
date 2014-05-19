@@ -1,0 +1,1128 @@
+/*
+Theme Name: Yielo
+Version: 0.4.1
+Description: Th&egrave;me d&eacute;di&eacute; au site de Yielo
+Author: Communaut&eaute; Yielo
+
+*/
+
+/* resets */
+html, body, div, h1, h2, h3, h4, h5, h6, img {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+/* fin resets */
+/*-- html5 --*/
+
+article, header, nav, footer {
+	display: block;
+}
+
+
+/* -- fin -- html5 -- */
+
+
+/* -- styles généraux -- */
+
+html, body{height: 100%; min-height: 100%;}
+
+body{
+	margin: 0;
+	min-width: 980px;
+	padding: 0;
+	background-color:#F6B60C;
+}
+
+p{
+	margin: 0 0 20px 0;	
+}
+
+a {
+
+	color:#FFFFFF;
+	text-decoration: none;	
+}
+a:hover{
+
+	color:#FFFFFF;
+	text-decoration:underline;	
+}
+
+p{
+	font-family:"Proxima Nova Light", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	font-size-adjust:0.488;
+	font-weight:200;
+	font-style:normal;
+}
+
+img{
+	border: 0;
+}
+
+h1, #pixels{
+	font-family:"Museo 900", Verdana, serif;
+	font-size-adjust:0.40;
+	font-weight:700;
+	font-style:normal;
+}
+
+h2{
+	font-family:"Josefin Slab", serif;
+	font-style:normal;
+	font-size:20pt;
+}
+
+
+h3{
+	font-family:"Josefin Slab", serif;
+	font-style:normal;
+	font-size:19px;
+}
+
+.clearfix:after{
+	content: ""; 
+	clear: both; 
+	display: block;
+}
+
+.float-left{
+	float: left;	
+	margin: 0 0 0 20px;
+}
+
+.float-right{
+	float: right;
+	margin: 0 20px 0 0;
+}
+
+.center{
+	font-size: 2.5em;
+	padding: 80px 0 0 0;
+	text-align: center;
+}
+
+.align-center {
+	text-align: center;
+}
+
+/* -- fin -- styles généraux -- */
+
+#ylo-page-wrapper {
+	min-height: 100%;
+}
+/* -- les style du menu principal top-menu en haut su site -- */
+#ylo-top-menu {
+	font-family: "Josefin Slab", serif;
+	height:42px;
+	position: fixed;
+	right: 20px;
+	padding: 0;	
+	z-index:99999;
+	margin-top: 10px; 
+}
+
+#ylo-top-menu a {
+	display: block;
+	padding: 13px 30px 13px 30px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+#ylo-top-menu ul {
+	padding: 0;
+	margin: 0;
+}
+
+#ylo-top-menu li {
+	background:url(images/fd-nav.png) no-repeat;
+	background-position: center 0;
+	list-style: none;
+	padding: 0 0 10px;
+	display: inline;
+	font-weight: 700;
+	position: relative;
+	display: block; 
+	float: left;
+	height: 42px;
+}
+
+#ylo-top-menu li.first-item{background-position: left 0;}
+#ylo-top-menu li.last-item{background-position: right 0;}
+
+#ylo-top-menu li:hover{background: transparent url(images/fd-nav-hover.png) no-repeat -15px 0;}
+#ylo-top-menu li.first-item:hover{background-position: 0 0;}
+#ylo-top-menu li.last-item:hover{background-position: right 0;}
+
+#ylo-top-menu ul.sub-menu {
+	background: transparent url(images/menuTOP.png) no-repeat top center;
+	-webkit-transition: top 0.1s ease-out; 
+	-moz-transition: top 0.1s ease-out; 
+	-o-transition: top 0.1s ease-out;
+	transition: top 0.1s ease-out;
+	display: block;
+	visibility: hidden;
+	position: absolute;
+	top: 45px;
+	left: 0;
+	margin-top: 10px;
+}
+
+#ylo-top-menu li:hover ul.sub-menu{
+	visibility: visible; 
+	top: 32px;
+	margin: 13px 0 0 0;
+	padding: 0;
+	padding-top: 18px;
+}
+
+#ylo-top-menu li ul.sub-menu li{
+	background: #f8c843;
+	width: auto; 
+	height: auto;
+	display: block;
+	float: none;
+	padding: 0;
+	font-family: "Proxima Nova Light", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	font-weight: normal;	
+}
+
+
+
+#ylo-top-menu li ul.sub-menu a{
+	text-align: left; 
+	padding-top: 0;
+	border-top: 1px solid #fff;
+	margin: 0 15px;
+	padding: 10px 0;
+	text-transform: none;
+}
+
+#ylo-top-menu li ul.sub-menu li:first-child a{
+	border-top: 0;
+}
+
+/* -- fin -- les style du menu principal top-menu en haut du site -- */
+
+/* -- La Front Page --*/
+/* l'essentiel de la font page est plus bas, dans la partie "copié-collé" */
+#ylo-front-connexion {
+	margin:20px 0 0 597px;
+	width:220px;
+	font-size: 16px;
+}
+
+#ylo-front-connexion .ylo-textfield {
+ 	display: block;
+ 	width: 200px;
+ 	max-width: 100%;
+ 	height: 1.1em;
+ 	font-size: 0.9em;
+}
+
+#ylo-front-connexion .ylo-width-fix {
+	width: 120px;
+	display: inline-block;
+}
+
+#ylo-front-connexion .ylo-submit {
+ 	height: 1.8em;
+ 	font-size: 0.9em;
+}
+ 
+#ylo-front-connexion form {
+  text-align: right; 
+}
+
+#ylo-front-connexion .ylo-login-form {
+	padding: 7px 0;
+}
+
+#ylo-front-connexion p {
+	font-size: 1.1em;
+	padding: 0;
+	margin: 0px;
+}
+#ylo-front-connexion .ylo-checkbox {
+	text-align: left;
+}
+
+#ylo-front-connexion .ylo-login-error {
+	padding: 0 ;
+	margin: 5px 0 10px 10px;
+	max-width: 100%;
+}
+#ylo-front-connexion .ylo-login-error li {
+	max-width: 100%;
+}
+
+/* -- fin -- La Front Page -- */
+
+
+/* -- style de la boite de recherche -- */
+
+.ylo-search-container input[type="text"], .ylo-search-text-field {
+  	-moz-box-shadow:    inset 0 0 5px #959595;
+  	-webkit-box-shadow: inset 0 0 5px #959595;
+  	box-shadow:         inset 0 0 5px #959595;
+  	height: 24px; 
+  	padding: 3px 10px; 
+  	width: 265px;
+  	border: 0;
+  	font-size: 15px;
+	font-family: "Proxima Nova Light",'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+.ylo-search-container fieldset {
+	padding-bottom: 5px;
+	border: 0;
+}
+.ylo-search-button {
+	width: 49px; height: 30px; 
+	text-indent: -9999px;
+	background: #f8c843 url(images/search-icon.png) no-repeat 10px 3px;
+	margin: 0;
+	border: 0;
+	cursor: pointer;
+}
+
+
+
+/* -- fin -- style de la boite de recherche -- */
+
+/* -- style d'une page normale -- */
+
+#ylo-page {
+	background: transparent url(images/BG-page.png) no-repeat 50% -51px; 
+	position: relative;
+}
+
+#ylo-content {
+	padding-top: 185px;
+	width: 980px; 
+	margin: 0 auto; 
+	position: relative; 
+	color: #111;
+}
+
+#ylo-content a {
+	color: #111;
+}
+
+.ylo-main-title {
+	font-family:"Josefin Slab", serif;
+	font-style:normal;
+	font-size: 42px;
+	position: absolute; top: 100px; left: 320px;
+	text-transform: uppercase;
+	margin-top: 0;
+	margin-left: 0;
+	min-height: 50px;
+}
+
+#ylo-top-action-box {
+	position: absolute; 
+	top: 55px; 
+	right: 15px;
+	z-index: 60;
+}
+
+#ylo-top-action-box div {
+	display: inline-block;
+}
+
+#ylo-top-action-box .ylo-logout-link {
+	padding: 9px 5px 0 0;
+	margin: 0;
+	vertical-align: top;
+	font-size: 0.7em;
+	text-align: right;
+}
+
+#ylo-top-action-box a {
+	color: #444;
+	text-decoration: none;
+}
+
+#ylo-top-action-box a:hover, #ylo-top-action-box a:active, #ylo-top-action-box a:focus {
+	color: OrangeRed;
+	text-decoration:underline;
+}
+
+.ylo-login-form {
+  	font-size: 15px;
+	font-family: "Proxima Nova Light",'Helvetica Neue',Arial,Helvetica,sans-serif;
+	padding-right: 14px;
+}
+
+.ylo-login-form .ylo-textfield {
+	max-width: 160px;
+	-moz-box-shadow:    inset 0 0 5px #959595;
+  	-webkit-box-shadow: inset 0 0 5px #959595;
+  	box-shadow:         inset 0 0 5px #959595;
+  	height: 24px; 
+  	padding: 3px 10px; 
+  	border: 0;
+	border-radius: 5px;
+}
+
+.ylo-login-form .ylo-submit {
+	height: 30px; 
+	border-radius: 5px;
+	background-color: #f8c843;
+	color: #fff;
+	border: 2px solid #ccc;
+}
+
+.ylo-login-form .ylo-submit:hover{
+	border: 3px solid Orange;
+	font-style: italic;
+}
+
+.ylo-login-form .ylo-checkbox {
+	display: inline-block;
+
+}
+.ylo-login-form .ylo-checkbox label {
+	display: inline-block;
+	font-size: 0.7em;
+	color: #999;	
+	position: relative;
+	top: 5px;
+	padding-right: 5px;
+}
+
+.ylo-login-error {
+	padding: 3px 30px 3px 100px ;
+	margin: 0;
+}
+
+.ylo-login-error li{
+	padding: 0;
+	margin: 0;
+	width: 400px;
+}
+
+
+#ylo-main {
+	min-height: 500px; 
+	background: #fff;
+}
+
+#ylo-page .ylo-col1, #ylo-page .ylo-col2{float: left;}
+#ylo-page .ylo-col1{width: 580px;}
+#ylo-page .ylo-col2{width: 350px; margin-left: 50px;}
+
+
+
+
+#ylo-page .ylo-col2 h3, #ylo-page .ylo-col1 h3{position: relative; text-transform: uppercase; padding-left: 16px; }
+#ylo-page .ylo-col2 h3 span, #ylo-page .ylo-col1 h3 span{
+	display: block; text-indent: -9999px;
+	width: 39px; height: 39px; position: absolute; top: -15px; left: 0;
+	background: transparent url(images/title-cache.png) no-repeat 0 0;
+}
+
+#ylo-page .ylo-full-width {
+	padding: 0 15px;
+}
+
+.ylo-post-article p, .ylo-post-article div {
+	overflow: auto;
+	padding: 15px;
+}
+.ylo-post-article {
+	border-bottom: 1px solid #aaa;
+	margin-bottom: 15px;
+}
+
+.ylo-lire-la-suite {
+	text-align: right;
+	padding-right: 100px;
+}
+
+#respond {
+	padding: 15px;
+}
+#respond textarea {
+	width: 100%;
+}
+
+/* -- fin -- style d'une page normale -- */
+
+/* -- style des sidebars -- */
+
+.ylo-sidebar {
+	
+}
+.ylo-sidebar, .ylo-sidebar a {
+	color: #000;
+}
+
+.ylo-sidebar li a:hover, .ylo-sidebar li a:active {
+	color: #222;
+	text-shadow: -3px 1px 1px #F6B60C;
+	font-weight: bold;
+	background: #F6B60C ;
+
+}
+
+ul.ylo-sidebar, .ylo-sidebar li {
+	margin: 0;
+	list-style: none;
+	padding: 0;
+}
+li.ylo-sidebar-item {
+	margin-bottom: 25px;
+}
+
+
+.ylo-sidebar h2 {
+	position: relative; 
+	text-transform: uppercase; 
+	padding-left: 16px;
+	font-style: normal;
+	font-size: 19px;
+	margin: 19px 0;
+}
+
+.ylo-sidebar h2 span {
+	display: block; text-indent: -9999px;
+	width: 39px; height: 39px; position: absolute; top: -15px; left: 0;
+	background: transparent url(images/title-cache.png) no-repeat 0 0;
+}
+
+
+/* -- fin des styles des sidebars -- */
+
+/* -- styles des classes de titres -- */
+
+h2.ylo-titre-ligne {
+	background: transparent url(images/h2-bck.png) repeat-x center center; 
+	text-align: center; 
+	text-transform: uppercase;
+	margin: 10px 0 20px 0;
+
+}
+
+h2.ylo-titre-ligne span {
+	background: #fff; display: inline-block; padding: 0 20px;
+}
+
+h2.ylo-titre-triangle {
+	position: relative; 
+	text-transform: uppercase; 
+	padding-left: 16px;
+	font-style: normal;
+	font-size: 19px;
+	margin: 19px 0;
+}
+
+h2.ylo-titre-triangle span {
+	display: block; text-indent: -9999px;
+	width: 39px; height: 39px; position: absolute; top: -15px; left: 0;
+	background: transparent url(images/title-cache.png) no-repeat 0 0;
+}
+
+/* -- fin -- styles des classes de titres -- */
+
+/* -- divers -- */
+
+ input.ylo-bouton-1 {
+	float: right; margin: 0; cursor: pointer;
+	border: 0; height: 43px; font-family:"Josefin Slab", serif; color: #fff; font-size: 19px;
+	background: transparent url(images/submit-bck.png) repeat-x 0 0; padding: 4px 20px 0 20px; text-transform: uppercase;
+}
+
+/* -- fin -- divers -- */
+
+/* -- styles des logins -- */
+#ylo-login-box {
+	width: 450px;
+	margin: 10px auto;
+	border: 2px #F6B60C solid;
+	border-radius: 15px;
+	padding: 15px;
+	box-shadow: 5px 5px 10px #333;
+	text-align: left;
+}
+
+#ylo-login-box h3 {
+	text-align: center;
+	text-transform: uppercase;
+	padding: 10px;
+}
+
+
+
+#ylo-login-box p {
+	display: block;
+	margin: 10px auto;
+	width: 400px;
+}
+
+#ylo-login-box label {
+	float: none;
+	display: inline-block;
+	width: 150px;
+}
+
+#ylo-login-box input {
+	float: none;
+	display: inline-block;
+}
+
+#ylo-login-box input[type="text"], #ylo-login-box input[type="password"], #ylo-login-box input[type="submit"]{	
+	-moz-box-shadow:    inset 0 0 5px #959595;
+ 	-webkit-box-shadow: inset 0 0 5px #959595;
+ 	box-shadow:         inset 0 0 5px #959595;
+ 	border: 1px #777 solid;
+ 	border-radius: 5px;
+ 	height: 20px; 
+ 	padding: 3px 10px; 
+ 	width: 200px;
+	
+}
+
+#ylo-login-box .login-remember label {
+	width: 200px;
+	font-size: 0.9em;
+}
+
+
+#ylo-login-box #wp-submit {
+	float: right;
+	position: relative;
+	bottom: 35px;
+	right: 50px;
+	width: 150px;
+	height: 27px;
+}
+
+
+/* -- fin -- style des logins -- */
+
+
+/* -- styles du formulaire d'insrciption -- */
+
+.ylo-inscription {
+	
+}
+.ylo-inscription .ylo-form-dialogue{
+	text-align: center;
+}
+.ylo-inscription  fieldset{border: 0; padding-bottom: 20px;}
+
+
+.ylo-form-div { margin: 3px 0 5px 0; }
+
+.ylo-form-div:after{content: ""; display: block; clear: both;}
+
+.ylo-form-div label,
+.ylo-form-div input[type="text"],
+.ylo-form-div textarea,
+.ylo-form-div input[type="file"]{
+	font-size: 15px; 
+	font-family:"Proxima Nova Light", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	display: block;
+	float: left;
+}
+
+.ylo-form-error ul {
+	margin: 0;
+	padding: 20px 0 0 20px;	
+}
+
+.ylo-form-error li, .ylo-login-error {
+	color: red;
+	font-size: 12px;
+	list-style: disk;
+	
+}
+
+.ylo-form-div label {color: #f2bb29; text-transform: uppercase; width: 175px; padding: 5px 0 3px 0;}
+.ylo-form-div ul.ylo-form-error+label {color: red;}
+.ylo-form-div label.ylo-textarea-label {width: 550px; }
+
+.ylo-form-div input{width: 300px;}
+.ylo-form-div input[type="text"], .ylo-form-div textarea{border: 1px solid #989898; padding: 3px; }
+.ylo-form-div textarea{float: none; clear: both; width: 550px; height: 80px;}
+.ylo-form-div input[type="file"]{clear: both; float: none;}
+
+/* -- fin -- styles du formulaire d'inscrition -- */
+
+/*** -- Styles de la page de recherche de membres -- ***/
+/* -- Style de l'entete et le formulaire -- */
+
+#ylo-search-member {
+	background: url('images/people_search.jpg') no-repeat scroll 0px 0px transparent;
+	height: 319px;
+}
+
+#ylo-search-member fieldset {
+	border: 0;
+	text-align: center;
+	padding-top: 160px;
+}
+
+#ylo-search-member input.ylo-search-text-field  {
+	height:  34px;
+}
+
+#ylo-search-member input.ylo-search-button {
+	width: 85px; 
+	height: 40px; 
+	background: #f8c843 url(images/search-icon-big.png) no-repeat 22px 3px;
+}
+
+/* -- fin -- Style de l'entete et le formulaire -- */
+
+/* -- styles des résultats -- */
+.ylo-search-user-results {
+	list-style: none;
+}
+
+ul.ylo-search-user-results:after {
+	content: " ";
+	clear: both;
+	display: block;
+}
+
+.ylo-search-user-results li {
+	display: block;
+	min-height: 80px;
+	width: 260px;
+	float: left;
+	position: relative;
+
+}
+
+.ylo-search-user-results img {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	height: 50px;
+	width: 50px;
+}
+
+.ylo-membre-summary {
+	margin: 0 0 0 60px;
+	padding: 5px 10px 0 0;
+}
+
+.ylo-search-user-results h4{font-family: arial, sans-serif; font-size: 15px; margin: 0; text-transform: uppercase;}
+.ylo-search-user-results h4 a{color: #111; text-decoration: none;}
+.ylo-search-user-results h5{font-family: arial, sans-serif; font-size: 13px; margin: 0; color: #333;}
+.ylo-search-user-results p{color: #333; font-size: 13px;}
+
+
+/* -- fin -- styles des résultats -- */
+
+/*** -- Fin -- Styles de la page de recherche de membre -- ***/
+
+
+/*** -- Styles d'une fiche Membre - page Membre -- ***/
+
+.ylo-member-page dt, .ylo-member-page label{
+	color: #f2bb29;
+	display: block;
+	text-transform: uppercase;
+	font-size: 15px;
+	font-family: "Proxima Nova Light", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+}
+.ylo-member-page dd{margin: 0; padding-bottom: 3px; font-family: arial, sans-serif;}
+
+.ylo-member-page .inline dt, .ylo-member-page .inline dd{float: left;}
+.ylo-member-page .inline dd{padding-left: 15px;}
+.ylo-member-page .inline:after{content: ""; display: block; clear: left;}
+
+
+.ylo-member-page .ylo-col1 h2.ylo-titre-membre {
+	background: none; font-size: 44px;  text-align: left; position: relative;
+	text-transform: uppercase;
+	margin: 36px 0;
+}
+.ylo-member-page .ylo-col1 h2.ylo-titre-membre span{
+	color: #f2bb29; font-size: 32px; position: absolute; bottom: -30px; right: 0; text-align: right;
+	text-transform: uppercase;
+	padding: 0 20px;
+}
+
+.ylo-member-page .ylo-col1{position: relative;}
+
+.ylo-fiche-image{
+	float: right;
+	margin-right: 20px;
+	border: 1px solid #000;}
+.ylo-fiche-image img{
+	display: block;
+	height: 190px;
+	width: 190px;
+}
+
+
+.ylo-send-message fieldset{
+	padding: 0;
+	border:0;
+}
+.ylo-send-message #ylo-envoi-message-membre{width: 100%; height: 80px;}
+.ylo-send-message .submit{position: relative; left: 8px; margin-top: 5px; margin-bottom: 50px;}
+
+/*** -- Fin -- Styles d'une fiche Membre - page Membre -- ***/
+
+/* -- Styles d'une page category -- */
+.ylo-category-item-header {
+	
+}
+
+.ylo-category-item-header p {
+	color: #555;
+	padding: 3px;
+	margin: -15px 0 0 15px;
+	text-align: left;
+}
+/* -- Fin -- Styles d'une page category
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* copié-collé des styles d origine */
+
+
+
+
+#header h1, #pixels{
+	color: #48941A;
+}
+
+
+
+#intro .logo{
+	background: url(images/logo.png) 50% 0 no-repeat fixed;
+	height: 800px;
+	margin: 0 auto;
+	padding: 40px;
+	position: absolute;
+	width: 1000px;
+	z-index: 0;
+	
+}
+
+.tablette{
+	background: url(images/tablette.png) 50% 0 no-repeat fixed;
+	height: 800px;
+	margin: 0 auto;
+	padding: 40px;
+	position: absolute;
+	width: 1000px;
+	
+	
+}
+
+/* GESTION DES BT */
+a.rollover{
+	float:none;
+	width:177px;
+	height:60px;
+	background:url(images/bt-jensuis.png) no-repeat;
+	display:block;
+	margin:20px 0 0 597px;
+}
+a.rollover:hover{
+	background-position: bottom center;
+
+}
+#dejamembre {
+	margin:20px 0 0 597px;
+	width:200PX;
+}
+
+
+a.rollover2{
+	float:none;
+	width:177px;
+	height:60px;
+	background:url(images/bt-inscrire.png) no-repeat;
+	display:block;
+	margin:20px 0 0 0;
+}
+a.rollover2:hover{
+	background-position: bottom center;
+
+}
+/*  FORMATAGE PARAGRAPHE accueil */
+#intro H2{
+	font-size:26px;
+	width:350px;
+	margin:230px 0 0 597px;
+	overflow:hidden;
+}
+#jensuis {
+z-index:300;
+position:absolute;
+}
+
+
+/*  FORMATAGE PARAGRAPHE accueil */
+#intro H2{
+	font-size:26px;
+	width:350px;
+	margin:230px 0 0 597px;
+	overflow:hidden;
+}
+#jensuis {
+z-index:300;
+position:absolute;
+}
+
+
+/*  FORMATAGE PARAGRAPHE PRESENTATION */
+#para1{
+	text-align: right;
+	width: 400px;
+	margin:150px 555px 0 0;
+}
+
+#para2{
+	
+	width: 400px;
+	margin:0px 50px 0 0;
+}
+
+#para3{
+	text-align: right;
+	width: 380px;
+	margin:180px 600px 0 0;
+}
+
+/*  FORMATAGE PARAGRAPHE LA CHARTE */
+
+#char1{
+	width:300px;
+	margin:35px 0 0 100px;
+	
+}
+
+#third H2{
+	color:#F6B60C;
+	margin-bottom:10px;
+}
+#third p{
+	color:#000000;
+}
+
+#char2 {
+	width:300px;
+	margin:35px 0 0 100px;
+	float:left;
+
+}
+
+
+/******/
+
+#header, #intro, #second{
+	width: 100%;
+}
+
+#intro{
+	background:url(images/BG1.png) 50% 0 no-repeat fixed;
+	color: white;
+	height: 900px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#second{
+	background: url(images/BG2.png) 50% 0 no-repeat fixed;
+	color: white;
+	height: 2000px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 0;
+}
+
+#second .bg{
+	background: url(images/trainers.png) 50% 0 no-repeat fixed;
+	height: 1300px;
+	margin: 0 auto;
+	padding: 0;
+	position: absolute;
+	width: 900px;
+	z-index: 200;
+}
+
+#third{
+	background: url(images/BG3.png) 50% 0 no-repeat fixed;
+	color: white;
+	height: 650px;
+	padding: 100px 0 0 0;	
+}
+
+#fifth{
+	background: #ccc;
+	height: 400px;
+	margin: 0 auto;
+	padding: 40px 0 0 0;
+}
+
+.presentation{
+	margin: 0 auto;
+	min-width: 980px;
+	overflow: none;
+	width: 980px;
+}
+
+.presentation .float-left, .story .float-right{
+	padding: 100px 0 0 0;
+	position: relative;
+	width: 350px;	
+}
+
+
+
+
+.form-submit{background: transparent url(images/h2-bck.png) repeat-x 0 0; margin-top: 15px;}
+.form-submit:after{content: ""; clear: both; display: block;}
+
+#form-temoignage{width: 100%; height: 145px;}
+
+/* PAGE */
+#page{
+	/*
+		height: 100%;
+	*/
+	min-height: 100%;
+	background: transparent url(images/BG-page.png) no-repeat 50% -51px;
+}
+#page .col1, #page .col2{float: left;}
+#page .col1{width: 580px;}
+#page .col2{width: 350px; margin-left: 50px;}
+
+#page .container{width: 980px; margin: 0 auto; position: relative; padding-top: 185px;}
+#page h2{background: transparent url(images/h2-bck.png) repeat-x center center; text-align: center; text-transform: uppercase;}
+#page h2 span{background: #fff; display: inline-block; padding: 0 20px;}
+
+
+#search-container{
+	position: absolute; z-index: 600; top: 99px; right: 13px;
+}
+#search-button{
+	width: 49px; height: 30px; text-indent: -9999px;
+	background: #f8c843 url(images/search-icon.png) no-repeat 10px 3px;
+}
+#search-container input[type="text"]{
+  -moz-box-shadow:    inset 0 0 5px #959595;
+  -webkit-box-shadow: inset 0 0 5px #959595;
+  box-shadow:         inset 0 0 5px #959595;
+  height: 24px; padding: 3px 10px; width: 265px;
+  border: 0;
+}
+
+#conntect-fb a{
+	display: block; 
+	text-indent: -9999px;
+	margin: 0 auto 35px auto;
+	width: 218px; height: 25px;
+	background: transparent url(images/connect-fb.png) no-repeat 0 0;
+}
+
+#page .col2 h3, #page .col1 h3{position: relative; text-transform: uppercase; padding-left: 16px; }
+#page .col2 h3 span, #page .col1 h3 span{
+	display: block; text-indent: -9999px;
+	width: 39px; height: 39px; position: absolute; top: -15px; left: 0;
+	background: transparent url(images/title-cache.png) no-repeat 0 0;
+}
+
+.last-subscription ul{padding: 0;}
+.last-subscription li{list-style: none; padding: 0 0 12px 76px; height: 50px; position: relative;}
+.last-subscription li:after{content: ""; clear: both; display: block;}
+.subscription-img{position: absolute; top: 0; left: 16px;}
+.last-subscription h4{font-family: arial, sans-serif; font-size: 15px; margin: 0; text-transform: uppercase;}
+.last-subscription h4 a{color: #111; text-decoration: none;}
+.last-subscription h5{font-family: arial, sans-serif; font-size: 13px; margin: 0; color: #333;}
+.last-subscription p{color: #333; font-size: 13px;}
+
+#page-community{background: transparent url(images/people_search.jpg) no-repeat 0 140px;}
+#page-community-body #search-container input[type="text"]{height: 34px;}
+#page-community-body #search-button{
+	width: 85px; height: 40px; text-indent: -9999px;
+	background: #f8c843 url(images/search-icon-big.png) no-repeat 22px 3px;
+}
+#page-community-body #search-container{top: 300px; left: 50%; margin-left: -200px; width: 398px;}
+#page #page-community{padding-top: 470px;}
+
+.bjqs-prev a, .bjqs-next a{
+	display: block; width: 43px; height: 58px; text-indent: -9999px;
+	background: transparent url(images/prev_next.png) no-repeat 0 0;
+}
+.bjqs-prev a:hover, .bjqs-next a:hover{margin-top: 1px;}
+.bjqs-next a{background-position: 0 -72px;}
+
+.bjqs .member-container{padding-left: 37px; padding-top: 18px;}
+
+.member-image{float: left; margin: 0 2px;}
+.member-image > a{display: block; border: 1px solid #d4d4d4; float: left;}
+.member-image img{display: block;}
+
+.member-name{clear: both; text-align: center; margin-bottom: 6px;}
+.member-name a{color: #787878; font-size: 13px; padding-top: 3px; display: block;}
+
+.button-huge a{
+	display: block; width: 591px; height: 93px;
+	background: transparent url(images/button-huge.png) no-repeat 0 0;
+	margin-bottom: 50px;
+	font-family:"Josefin Slab", serif;
+	font-style:normal;
+	font-size: 24px;
+	color: #fff;
+	text-transform: uppercase;
+	padding: 44px 0 0 35px;
+	text-decoration: none;
+}
+
+.send-message fieldset{padding: 0;}
+.send-message #message{width: 100%; height: 80px;}
+.send-message .submit{position: relative; left: 8px; margin-top: 5px; margin-bottom: 50px;}
+
+#page-fiche dt{
+	color: #f2bb29;
+	display: block;
+	text-transform: uppercase;
+	font-size: 15px;
+	font-family: "Proxima Nova Light", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+#page-fiche dd{margin: 0; padding-bottom: 3px; font-family: arial, sans-serif;}
+
+#page-fiche .inline dt, #page-fiche .inline dd{float: left;}
+#page-fiche .inline dd{padding-left: 15px;}
+#page-fiche .inline:after{content: ""; display: block; clear: both;}
+
+#page-fiche .col1 h2{background: none; font-size: 44px;  text-align: left; position: relative;}
+#page-fiche .col1 h2 span{color: #f2bb29; font-size: 32px; position: absolute; bottom: -30px; right: 0; text-align: right;}
+
+#page-fiche .col1{position: relative;}
+
+.fiche-image{position: absolute; top: 115px; right: 20px; border: 1px solid #000;}
+.fiche-image img{display: block;}

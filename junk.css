@@ -1,0 +1,25 @@
+#page-fiche dt{
+	color: #f2bb29;
+	display: block;
+	text-transform: uppercase;
+	font-size: 15px;
+	font-family: "Proxima Nova Light", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+#page-fiche dd{margin: 0; padding-bottom: 3px; font-family: arial, sans-serif;}
+
+#page-fiche .inline dt, #page-fiche .inline dd{float: left;}
+#page-fiche .inline dd{padding-left: 15px;}
+#page-fiche .inline:after{content: ""; display: block; clear: both;}
+
+#page-fiche .ylo-col1 h2{background: none; font-size: 44px;  text-align: left; position: relative;}
+#page-fiche .ylo-col1 h2 span{color: #f2bb29; font-size: 32px; position: absolute; bottom: -30px; right: 0; text-align: right;}
+
+#page-fiche .ylo-col1{position: relative;}
+
+.ylo-fiche-image{position: absolute; top: 115px; right: 20px; border: 1px solid #000;}
+.ylo-fiche-image img{display: block;}
+
+
+.send-message fieldset{padding: 0;}
+.send-message #message{width: 100%; height: 80px;}
+.send-message .submit{position: relative; left: 8px; margin-top: 5px; margin-bottom: 50px;}
