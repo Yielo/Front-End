@@ -10,44 +10,82 @@ class yloUserSearch
 		if(isset($_POST[$champ]))  $search = sanitize_text_field($_POST[$champ]);
 		elseif(isset($_GET[$champ])) $search = sanitize_text_field;
 		else return false;
-		$resultat = $this->queryUsers($search);
+		$resultat = $this->queryUsers($search, -1);
 		$this->displayResultat($resultat);
 	}
 	
-	protected function queryUsers($search){
-		// TODO cette méthode est mega naze, à revoir !!
+	protected function queryUsers($search, $nb = 20, $offset = 0){
+		$liste = $this->queryUsersIds($search, $nb, $offest);
+		return new WP_User_Query( array( 'include' => $liste ) );
+	}
+	
+
+	
+	protected function queryUsersIds($search, $nb = 20, $offest = 0){
+		global $wpdb;
 		
-		// WP_User_Query arguments
-		$champs = array( 'first_name', 'last_name', 'ylo_competences');
-		$query_array = array('relation' => 'OR');
+		$rows = $wpdb->get_results($wpdb->prepare(
+				"SELECT * FROM $wpdb->usermeta WHERE
+				(
+					meta_key = 'first_name'
+					OR meta_key = 'last_name'
+					OR meta_key = 'nickname'
+					OR meta_key = 'user_email'
+					OR meta_key = 'user_login'
+					OR meta_key = 'ylo_ville'
+					OR meta_key = 'ylo_pays'
+					OR meta_key = 'ylo_competences'
+					OR meta_key = 'ylo_formation'
+					OR meta_key = 'ylo_experiences_pro'
+					OR meta_key = 'ylo_temoignage'
+					OR meta_key = 'ylo_ville'
+					OR meta_key = 'ylo_eglise'
+				)
+				AND meta_value LIKE %s", 
+				'%'.$search.'%'
+			));
+
+		// on fait une recherche dans la table user
+		$user_rows = $wpdb->get_results($wpdb->prepare(
+				"SELECT * FROM $wpdb->users WHERE
+					user_login LIKE %s 
+					OR user_nicename LIKE %s
+					OR user_email LIKE %s
+					OR user_url LIKE %s
+					OR display_name LIKE %s 
+				",
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%'
+			));		
+		// on va trier les résultats par occurence du terme trouvé
+		// en cosidérant un coefficficient 5 pour les résultat de la table user
+		$les_membres = array();
+		foreach($user_rows as $user_row){
+			$les_membres[$user_row->ID] = 5;
+		}
+		foreach($rows as $row){
+			if(isset($les_membres[$row->user_id])) $les_membres[$row->user_id]++;
+			else $les_membres[$row->user_id] = 1;
+		}
+		asort($les_membres);
 		$k = 0;
-		$fields = array('id');
-		foreach($champs as $champ ){
-			$query_array[$k] = array(
-						'key'     => $champ,
-						'value'   => $search,
-						'compare' => 'LIKE',
-					);
+		$indexes = array();
+		foreach($les_membres as $id => $occurence){
+			$indexes[$k] = $id;
 			$k++;
 		}
-		$args = array (
-				'meta_query' => $query_array,
-				'fields'         => array( 
-						'ID', 
-						'user_login', 
-						'user_nicename', 
-						'user_email', 
-						'user_url', 
-						'display_name',
-
-					),
-		);
-		
-		// The User Query
-		 return new WP_User_Query( $args );
-		
-
-		
+	
+		if(intval($nb) == -1 ) return $indexes;
+		else {
+			$resultat = array();
+			for($k = 0 ; $k < $nb ; $k++ ){
+				$resultat[] = $indexes[$k + $offest];
+			}
+			return $resultat;
+		} 
 	}
 	
 	protected function displayResultat($user_query){
