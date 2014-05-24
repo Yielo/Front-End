@@ -13,7 +13,7 @@
 			<div id ="ylo-search-member">
 				<form id="ylo-search-member-form" name="ylo-search-member-form" method="post">
 					<fieldset>
-						<input type="text" name="ylo-search-member" class="ylo-search-text-field" value="" placeholder="Un membre, un métier , un lieu,..." />
+						<input type="text" name="ylo_cherche_membre" class="ylo-search-text-field" value="" placeholder="Un membre, un métier , un lieu,..." />
 						<input type="submit" value="Rechercher" class="ylo-search-button"  />
 					</fieldset>
 				</form>
@@ -27,7 +27,7 @@
 						</div>
 					<?php endwhile;?>
 					
-					<?php if(!empty($_POST['ylo-search-member'])) : do_action('ylo_search_member', 'ylo-search-member'); ?>
+					<?php if(!empty($_POST['ylo_cherche_membre']) || !empty($_GET['ylo_cherche_membre'])) : do_action('ylo_search_member', 'ylo_cherche_membre', 12); ?>
 					<?php else : ?>
 						<p>Veuillez remplir le formulaire ci-dessus pour effectuer une recherche</p>
 					<?php endif ;?>
