@@ -3,27 +3,73 @@ yieloCenter::includeClassFile('yloUserFields');
 
 class yloUserSearch
 {
+	protected $nb = 20;
+	protected $page = 0;
+	protected $search = '';
+	protected $champs = 'ylo_search';
+	protected $nb_resultats = 0;
 	
 	// la méthode suivante est conçue pour être appelée en réponse à un formulaire don $champ et le nom de la variable de recherche
-	public function templatePartResultat($champ = 's'){
-
-		if(isset($_POST[$champ]))  $search = sanitize_text_field($_POST[$champ]);
-		elseif(isset($_GET[$champ])) $search = sanitize_text_field;
+	public function templatePartResultat($champs = null, $nb_par_page = 20){
+		if(is_null($champs)) $champs = $this->$champs;
+		else $this->champs = (string) $champs;
+		if(isset($_POST[$champs]))  $search = sanitize_text_field($_POST[$champs]);
+		elseif(isset($_GET[$champs])) $search = sanitize_text_field(urldecode($_GET[$champs]));
 		else return false;
-		$resultat = $this->queryUsers($search, -1);
+		$this->search = $search;
+		$this->nb = absint($nb_par_page);
+		if($this->nb == 0 ) return false;
+		if(isset($_GET[$champs.'_p']) && !isset($_POST[$champs])) $this->page = absint($_GET[$champs.'_p']); // l'extention _p désigne la page de la recherche
+		else $this->page = 0;
+		$offset = intval($this->nb) * intval($this->page);
+		$resultat = $this->queryUsers($search, $this->nb, $offset);
 		$this->displayResultat($resultat);
+		echo '<div class="ylo-nav-users">'.$this->displayLiens().'</div>';
 	}
 	
 	protected function queryUsers($search, $nb = 20, $offset = 0){
-		$liste = $this->queryUsersIds($search, $nb, $offest);
-		return new WP_User_Query( array( 'include' => $liste ) );
+		$search_str = $termes[0] = trim(substr($search, 0, 150)); // on défini un mot le plus long à 150 carractères
+		preg_match_all('/"(.*)"/U', stripslashes($termes[0]), $guillemets); // on récupère les expressions entre guillemets
+		foreach($guillemets[1] as $str) $termes[] = addslashes($str);
+		foreach($guillemets[0] as $str) $search_str = addslashes(str_replace($str, '', stripslashes($search_str)));
+		$mots = str_replace(array('"', '.', ',', "'", '  ' ), ' ', stripslashes($search_str));
+		$mots = explode( ' ', $mots);
+		foreach($mots as $mot){
+			if(strlen(trim($mot)) > 0 ) $termes[] = trim(addslashes($mot));
+		}
+		$liste = $this->queryUsersIds($termes[0]);
+		for($k = 1 ; $k <count($termes) ; $k++){		
+			$liste = $this->queryUsersIds($termes[$k], $liste);
+		}
+		arsort($liste);
+		$liste_finale = array();
+		$n = 0;
+		foreach($liste as $k => $occ){
+			$liste_finale[$n] = $k;
+			$n++;
+		}
+		$this->nb_resultats = count($liste);
+		$query_list = array_slice($liste_finale, absint($offset), absint($nb), true);
+		if(count($query_list) == 0 ) return new WP_User_Query();
+		else {
+			$db_reponse = new WP_User_Query( array( 'include' =>  $query_list ) );
+			// ici je fait un petit hack pour ordonner les résultat dans l'ordre qui me convient
+			$flip = array_flip($query_list);
+			foreach($flip as $k => $on_sen_fou) $flip[$k] = false;
+			foreach($db_reponse->results as $user) $flip[$user->data->ID] = $user;
+			$k = 0;
+			foreach($flip as $user) if($user){ 
+				$db_reponse->results[$k] = $user;
+				$k++;
+			}
+			return $db_reponse ;
+		}
 	}
 	
 
 	
-	protected function queryUsersIds($search, $nb = 20, $offest = 0){
+	protected function queryUsersIds($search, $liste_ids = array()){
 		global $wpdb;
-		
 		$rows = $wpdb->get_results($wpdb->prepare(
 				"SELECT * FROM $wpdb->usermeta WHERE
 				(
@@ -61,31 +107,20 @@ class yloUserSearch
 				'%'.$search.'%'
 			));		
 		// on va trier les résultats par occurence du terme trouvé
-		// en cosidérant un coefficficient 5 pour les résultat de la table user
-		$les_membres = array();
+		// on utilise un coefficient pour pondérer les mots plus longs d'une plus grande valeur
+		// on prend un coefficficient supplémentaire de 5 pour les résultat de la table user
+		$coef = strlen($search)*strlen($search);
+		if($nb = count($rows) + count($user_rows)) $coef = intval($coef/($nb));
+		if($coef == 0 ) $coef =1;
 		foreach($user_rows as $user_row){
-			$les_membres[$user_row->ID] = 5;
+			if(isset($liste_ids[$user_row->ID])) $liste_ids[$user_row->ID] += 5*$coef;
+			else $liste_ids[$user_row->ID] = 5*$coef;
 		}
 		foreach($rows as $row){
-			if(isset($les_membres[$row->user_id])) $les_membres[$row->user_id]++;
-			else $les_membres[$row->user_id] = 1;
+			if(isset($liste_ids[$row->user_id])) $liste_ids[$row->user_id] += $coef;
+			else $liste_ids[$row->user_id] = $coef;
 		}
-		asort($les_membres);
-		$k = 0;
-		$indexes = array();
-		foreach($les_membres as $id => $occurence){
-			$indexes[$k] = $id;
-			$k++;
-		}
-	
-		if(intval($nb) == -1 ) return $indexes;
-		else {
-			$resultat = array();
-			for($k = 0 ; $k < $nb ; $k++ ){
-				$resultat[] = $indexes[$k + $offest];
-			}
-			return $resultat;
-		} 
+		return $liste_ids;
 	}
 	
 	protected function displayResultat($user_query){
@@ -110,6 +145,58 @@ class yloUserSearch
 		} else {
 			echo '<p>Pas de membre trouv&eacute;';
 		}		
+	}
+	
+	protected function page_url($page = null, $search = null, $champs = null){
+		if(is_null($page)) $page = $this->page;
+		if(is_null($search)) $search = $this->search;
+		if(is_null($champs)) $champs = $this->champs;
+		$parametres = explode('&', str_replace('&amp;', '&', $_SERVER['QUERY_STRING']));
+		$new_parametres = '';
+		foreach($parametres as $k =>$para)
+			if(strpos($para, $champs) !== 0) $new_parametres .= (empty($new_parametres))? $para : '&'.$para;
+		$recherche = $champs.'='.urlencode($search).'&'.$champs.'_p='.$page;
+		$new_parametres .= empty($new_parametres) ? $recherche : '&'.$recherche;
+		$req = '?'.$new_parametres;
+		return $req;
+	}
+	
+	protected function displayLiens($page = null, $prec = null, $suiv = null, $debut = null, $fin = null){
+		if(is_null($page)) $page = $this->page;
+		if(is_null($prec)) $prec = __('&larr; Page pr&eacute;c&eacute;dente');
+		if(is_null($suiv)) $suiv = __('Page suivante &rarr;');
+		$nb_pages =	intval(ceil( intval($this->nb_resultats)/intval($this->nb)));
+		$page = intval($page);
+		if($nb_pages <= 1 ) return '';
+		else{
+			$k=0;
+			$delta = 1;
+			$pages_prec = array();
+			$pages_suiv = array();
+			while($k <10 && $delta < 10){
+				if($page - $delta >= 0){
+					$pages_prec[] = $page - $delta ;
+					$k++;
+				}
+				if($page + $delta <= $nb_pages - 1){
+					$pages_suiv[] = $page + $delta;
+					$k++;
+				}
+				$delta++;
+			}
+			sort($pages_prec);
+			sort($pages_suiv);
+			$retour = '';
+			if(!is_null($debut) && $page > 0) $retour .= ' <a href="'.$this->page_url(0).'">'.esc_html($debut).'</a> ';
+			if($page >0 ) $retour .= ' <a href="'.$this->page_url($page - 1).'">'.esc_html($prec).'</a> ';
+			foreach($pages_prec as $page_no) $retour .= ' <a href="'.$this->page_url($page_no).'">'.(intval($page_no+1)).'</a> ';
+			$retour .= $page +1 ;
+			foreach($pages_suiv as $k=>$page_no) $retour .= ' <a href="'.$this->page_url($page_no).'">'.(intval($page_no+1)).'</a> ';
+			if($page < $nb_pages -1 ) $retour .= ' <a href="'.$this->page_url($page + 1).'">'.esc_html($suiv).'</a> ';
+			if(!is_null($fin) && ($page < $nb_pages -1 ) ) $retour .= ' <a href="'.$this->page_url($nb_pages-1).'</a> ';
+			return $retour;
+		}
+
 	}
 	
 }
