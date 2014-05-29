@@ -45,6 +45,8 @@ class yloProfile extends yloSignup
 		if(yloAvatarUploader::is_upload('ylo_avatar_upload')){
 			$avatar = new yloAvatarUploader('ylo_avatar_upload');
 			if(!$this->user->setAvatar($avatar->the_url(), $avatar->the_errors())) $this->form_valide = false;
+		}elseif(!empty($_POST['ylo_supprimer_avatar']) && ($_POST['ylo_supprimer_avatar'] == 'ylo_supprimer_avatar')){
+			$this->user->setAvatar('');
 		}elseif(!empty($_POST['ylo_avatar_existant'])){
 			$this->user->setAvatar((yloAvatarUploader::check_url($_POST['ylo_avatar_existant'])) ? $_POST['ylo_avatar_existant'] : '' );
 		}
