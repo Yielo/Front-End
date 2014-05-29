@@ -44,6 +44,26 @@ class yloFicheMembre
 		}
 	}
 	
+	public function displayInfo($label,$format,  $champs = '', $echo = true){
+		$str = '';
+		if($format == 'ville'){
+			$ville = $this->ylo_ville; 
+			$pays = ( strlen($this->ylo_pays) > 0 ) ?'( '.$this->ylo_pays.' )': '';
+			$ville .= (empty($ville) || empty($pays)) ? '': ' ';
+			$ville .= $pays;
+			if(!empty($ville)) $str = $this->display_info_simple($label, esc_html($ville), 'inline');
+		}elseif($format == 'simple'){
+			$valeur = $this->$champs;
+			if(!empty($valeur)) $str = $this->display_info_simple($label, esc_html($valeur), 'inline');
+		}elseif($format == 'large'){
+			$valeur = $this->$champs;
+			if(!empty($valeur)) $str = $this->display_info_simple($label, esc_html($valeur), 'ylo_large');
+		}
+		if($echo) echo $str;
+		return $str;
+	}
+	
+	
 	public function is_envoi_reussi(){
 		return ($this->is_envoi && (count($this->erreurs_envoi) == 0));
 	}
@@ -78,12 +98,22 @@ class yloFicheMembre
 		$from_nom = $sender->last_name;
 		$from_email = $sender->user_email;
 		$headers[] = 'From: '.$from_prenom.' '.$from_nom.' <'.$from_email.'>';
-		if(wp_mail($to, $this->sujet, $this->message, $headers)){
+		$pre_message = __("Ce message vous est envoyé via le site Yielo.net\n par $from_prenom $from_nom ($from_email) \n------------\n");
+		if(wp_mail($to, $this->sujet, $pre_message.$this->message, $headers)){
 			return true;
 		}else{
 			$this->erreurs_envoi[] = __('L&#39;envoi a &eacute;chou&eacute; &agrave; cause d&#39;une erreur interne, veuiller informer l&#39;administrateur du site.');
 			return false;
 		}
 	}
+	
+	protected function display_info_simple($label, $valeur, $class){
+		return '<dl class="'.$class.'">
+					<dt>'.$label.'</dt>
+					<dd>'.$valeur.'</dd>
+				</dl>';
+	}
+	
+
 	
 }
