@@ -46,6 +46,10 @@ class yloFrontpageSettings
 	public function getTexte($champ, $echo = true){
 		if(isset($this->FrontTextes[$champ])) {
 			if($echo ) echo esc_html($this->FrontTextes[$champ]);
+			if(empty($this->FrontTextes[$champ])){ // un petit fix pour résoudre les bugs d'affichage lorsque le contenu est vide
+				if($echo) echo '&nbsp;';
+				return '&nbsp;';
+			}
 			return esc_html($this->FrontTextes[$champ]);
 		}
 		else return false;
