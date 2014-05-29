@@ -9,7 +9,8 @@ class yloLoginForm
 				$user = wp_signon();
 				if(is_wp_error($user)){
 					add_action('ylo_custom_login_error', array($this, 'display_errors'));
-					$this->errors[] = $user->get_error_message();
+					if(empty($_POST['log'])) $this->errors[] = __('Vous devez saisir un nom d&#39;utilisateur pour vous identifier.');
+					else $this->errors[] = $user->get_error_message();
 				}else{
 					// on recharge la page pour palier à un bug d'affichage que j'ai pas compris
 					wp_redirect($_SERVER['REQUEST_URI']);
