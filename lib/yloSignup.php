@@ -44,7 +44,7 @@ class yloSignup
 	
 	public function value($champ, $echo = true){
 		if($this->submitted || $this->is_update){
-			$value = $this->user->getValue($champ);
+			$value = stripslashes($this->user->getValue($champ));
 			if($value && $echo) echo esc_attr($value);
 			return $value;
 		}else{
@@ -52,12 +52,13 @@ class yloSignup
 		}
 	}
 	
-	public function avatarValue($champAvatar, $champHidden){
+	public function avatarValue($champAvatar, $champHidden, $champSuppression){
 		if($this->submitted || $this->is_update){
 			$url = $this->user->getValue($champAvatar);
 			if(!empty($url)){
 				echo '<p style="clear: both;"><img src="'.esc_url($url).'"/>';
-				echo '<input type="hidden" name="'.$champHidden.'" value="'.esc_url($url).'" /><br /><br />';
+				echo '<input type="hidden" name="'.$champHidden.'" value="'.esc_url($url).'" /><br />';
+				echo '<input type="checkbox" name="'.$champSuppression.'" value="'.$champSuppression.'" class="ylo-checkbox"> Supprimer cet avatar <br /><br />';
 				echo __('Choisir un autre fichier : ');
 				echo '</p>';
 			}
@@ -99,12 +100,14 @@ class yloSignup
 		$this->user->setExperiencesPro(isset($_POST['ylo_experiences_pro']) ? $_POST['ylo_experiences_pro'] : '');
 		$this->user->setTemoignage(isset($_POST['ylo_temoignage']) ? $_POST['ylo_temoignage'] : '');
 		
-		// l'avatar est optionnel mais il peut y avoir une erreur de chargement
+			// l'avatar est optionnel mais il peut y avoir une erreur de chargement
 		if(yloAvatarUploader::is_upload('ylo_avatar_upload')){
 			$avatar = new yloAvatarUploader('ylo_avatar_upload');
 			if(!$this->user->setAvatar($avatar->the_url(), $avatar->the_errors())) $this->form_valide = false;
+		}elseif(!empty($_POST['ylo_supprimer_avatar']) && ($_POST['ylo_supprimer_avatar'] == 'ylo_supprimer_avatar')){
+			$this->user->setAvatar('');
 		}elseif(!empty($_POST['ylo_avatar_existant'])){
-			$this->user->setAvatar((yloAvatarUploader::check_url($_POST['ylo_avatar_existant'])) ? $_POST['ylo_avatar_existant'] : '' ); 
+			$this->user->setAvatar((yloAvatarUploader::check_url($_POST['ylo_avatar_existant'])) ? $_POST['ylo_avatar_existant'] : '' );
 		}
 
 	
