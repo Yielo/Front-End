@@ -145,7 +145,8 @@ $yloForm = apply_filters('ylo_signup_form', false );
 								<div class="ylo-form-div">
 									<?php $yloForm->displayError('ylo_avatar_upload'); ?>
 									<label for="ylo_avatar_upload">Ton avatar</label>
-									<?php $yloForm->avatarValue('ylo_avatar_upload', 'ylo_avatar_existant'); ?>
+									<?php $yloForm->avatarValue('ylo_avatar_upload', 'ylo_avatar_existant', 'ylo_supprimer_avatar'); ?>
+									
 									<input type="file" name="ylo_avatar_upload" id="ylo_avatar_upload" />
 								</div>
 								
