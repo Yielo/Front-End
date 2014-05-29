@@ -1,6 +1,6 @@
 /*
 Theme Name: Yielo
-Version: 0.4.1
+Version: 0.4.4
 Description: Th&egrave;me d&eacute;di&eacute; au site de Yielo
 Author: Communaut&eaute; Yielo
 
@@ -645,6 +645,7 @@ h2.ylo-titre-triangle span {
 .ylo-form-div label.ylo-textarea-label {width: 550px; }
 
 .ylo-form-div input{width: 300px;}
+.ylo-form-div input.ylo-checkbox {width: 2em;}
 .ylo-form-div input[type="text"], .ylo-form-div textarea{border: 1px solid #989898; padding: 3px; }
 .ylo-form-div textarea{float: none; clear: both; width: 550px; height: 80px;}
 .ylo-form-div input[type="file"]{clear: both; float: none;}
@@ -763,6 +764,7 @@ ul.ylo-search-user-results:after {
 
 
 .ylo-send-message fieldset{
+	clear:both;
 	padding: 0;
 	border:0;
 }
