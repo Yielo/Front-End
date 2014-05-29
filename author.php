@@ -8,43 +8,20 @@
 			<div id="ylo-main">
 				<div class="ylo-col1">
 				
-				<h2 class="ylo-titre-membre"><?php $membre->first_name(); ?> <?php $membre->last_name(); ?> <span><?php echo substr($membre->ylo_competences, 0, 20); ?></span></h2>
+				<h2 class="ylo-titre-membre"><?php $membre->first_name(); ?> <?php $membre->last_name(); ?> <span><?php echo substr($membre->ylo_competences, 0, 30); ?></span></h2>
 				
 				<div class="ylo-fiche-image"><?php $membre->get_avatar(); ?></div>
 
 
+				<?php $membre->displayInfo('Ville', 'ville');?>
+				<?php $membre->displayInfo('Eglise', 'simple', 'ylo_eglise');?>
+				<?php $membre->displayInfo('Comp&eacute;tences', 'simple', 'ylo_competences');?>
+				<?php $membre->displayInfo('Formation', 'simple', 'ylo_formation');?>
+				<?php $membre->displayInfo('Experience professionnelle', 'large', 'ylo_experiences_pro');?>
+				<?php $membre->displayInfo('T&eacute;moignage', 'large', 'ylo_temoignage');?>
 				
-				<dl class="inline">
-					<dt>Ville</dt>
-					<dd><?php $membre->ylo_ville(); ?>  <?php echo empty($membre->ylo_pays) ? '': '( '.$membre->ylo_pays.' )'; ?> </dd>
-				</dl>
 				
-				<dl class="inline">
-					<dt>Foi</dt>
-					<dd>Chrétien</dd>
-				</dl>
 				
-				<dl class="inline">
-					<dt>Eglise</dt>
-					<dd><?php $membre->ylo_eglise(); ?></dd>
-				</dl>
-				
-				<dl class="inline">
-					<dt>Formation</dt>
-					<dd><?php $membre->ylo_formation(); ?></dd>
-				</dl>
-				
-				<dl>
-					<dt>Experience professionnelle</dt>
-					<dd>
-						<?php $membre->ylo_experiences_pro(); ?>
-					</dd>
-				</dl>
-				
-				<dl>
-					<dt>Témoignage</dt>
-					<dd><?php $membre->ylo_temoignage(); ?></dd>
-				</dl>
 				
 				<div class="ylo-send-message">
 					<?php if($membre->is_envoi_reussi()) : ?>
