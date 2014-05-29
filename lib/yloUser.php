@@ -173,7 +173,7 @@ class yloUser
 		foreach($errors as $error){
 			$this->errors['ylo_avatar_upload'][] = $error;
 		}
-		if($avatarURL) {
+		if($avatarURL || $avatarURL === '') {
 			$this->user_info['ylo_avatar_upload'] = $avatarURL;
 			return true;
 		}else return false;
@@ -205,12 +205,15 @@ class yloUser
 			if($new){
 				$userdata['user_pass'] = $this->user_info['ylo_user_pass']; 
 				$userdata['role'] = 'author' ;
-				return wp_insert_user( $userdata ) ;
+				$user_id =  wp_insert_user( $userdata ) ;
 			}else{
 				$userdata['ID'] = $this->user_id;
 				if($this->edit_password) $userdata['user_pass'] = $this->user_info['ylo_user_pass']; 
-				return wp_update_user( $userdata );
+				$user_id = wp_update_user( $userdata );
 			}
+			if($user_id) update_user_meta( $user_id, 'ylo_avatar_upload', $userdata['ylo_avatar_upload']);
+			
+			return $user_id;
 		}else{
 			return false;
 		}
