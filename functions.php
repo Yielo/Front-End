@@ -29,7 +29,7 @@ $yloC->add_filter('ylo_signup_form', 'yloSignup');
 $yloC->add_filter('ylo_update_form', 'yloProfile');
 
 //gère les recherches de membres sur la page 'Recherche Memebre'
-$yloC->add_action('ylo_search_member', 'yloUserSearch', 'templatePartResultat', 10, 1 );
+$yloC->add_action('ylo_search_member', 'yloUserSearch', 'templatePartResultat', 10, 2 );
 
 // gère les champs dynamiques de la page author.php  et l'envoi des messages via la page membre
 $yloC->add_filter('ylo-fiche-membre', 'yloFicheMembre', 'instance');
@@ -45,14 +45,6 @@ $yloC->add_action('admin_init', 'yloAdminPagesPrivee', 'adminInitHook');
 //gère les formulaires de login
 $yloC->add_action('after_setup_theme', 'yloLoginForm', 'checkLogin');
 
-
-
-function jeTeste(){
-	for($k=0; $k <256 ; $k ++){
-		echo $k.' = '. chr($k) . ' = '. wp_slash(chr($k))." = ". sanitize_user(chr($k))."<br >\n";
-	}
-}
-
-
-
-
+//gère l'éditeur pour écriture et d'édition de nouveaux posts
+$yloC->add_filter('ylo_new_post_link', 'yloNewPost', 'lien_nouvel_article');
+$yloC->add_action('ylo_new_post_editor', 'yloNewPost', 'nouveau', 10, 1);
