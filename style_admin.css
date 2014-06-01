@@ -1,5 +1,93 @@
 
 
-#yielo_front_textes input['text'], #yielo_front_textes textarea {
-	width: 500px;
+#ylo-theme-settings-wrapper {
+	width: 850px;
+	background: LemonChiffon;
+	border: #ccc 1px solid;
+	padding: 5px 0 20px;;
+}
+
+h1.ylo-main-titre {
+	margin: 0;
+	padding: 10px 20px;
+	font-family: 'Audiowide', cursive;
+	color: Teal;
+	text-align: center;
+	text-shadow: 2px 2px 5px Yellow;
+}
+
+.ylo-onglets-settings ul {
+	margin: 0;
+	padding: 0;
+}
+
+.ylo-onglets-settings li {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+.ylo-onglets-settings li a {
+	display: block;
+	height: 20px;
+	padding: 5px 10px;
+	background: coral;
+	color: Teal;
+	text-decoration: none;
+	border-radius: 10px 10px 0 0;
+	font-size: 1.1em;
+}
+
+
+.ylo-onglets-settings li a:hover{
+	background: PapayaWhip;
+}
+
+.ylo-onglets-settings .current a{
+	background: Gold;
+	color: DarkBlue;
+}
+
+.ylo-setting-page {
+	background: Gold;
+	color: DarkBlue;
+	padding: 10px;
+}
+
+.ylo-setting-page hr {
+	color: PaleGoldenrod;
+}
+
+.ylo-setting-page h2, .ylo-setting-page h3, .ylo-setting-page h4 {
+	font-family: 'Audiowide', cursive;
+	color: Teal;
+	margin: 0;
+	padding: 5px 15px;
+	text-shadow: 2px 2px 5px #ccc;
+	
+}
+
+.ylo-admin-box1 {
+	background: LightGoldenrodYellow;
+	margin: 5px;
+	padding: 5px;
+	border: 1px #aaa solid;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px Yellow;
+}
+
+.ylo-admin-box1 textarea, .ylo-admin-box1 input[type="text"] {
+	width: 90%;
+	margin: 5px auto 10px;
+	display: block;
+}
+
+.ylo-admin-bi-colones {
+	display: inline-block;
+	width: 380px;
+}
+
+
+.ylo-hidden-setting-page {
+	display: none;
 }
