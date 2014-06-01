@@ -4,7 +4,9 @@ include_once(get_template_directory().'/lib/yieloCenter.php');
 
 $yloC = new yieloCenter();
 
-if(is_admin()) $yloC->setupAdmin();
+
+// gère la page d'options du thème dans l'admin
+$yloC->add_action('admin_menu', 'yloAdminPageOptions', 'setup');
 
 // gère le contenu de la balise <title>
 $ylo_title 	=	$yloC->make('yloTitle');
@@ -17,6 +19,7 @@ $ylo_sidebars = $yloC->make('yloSidebars');
 
 // gère les textes de la front page
 $yloC->add_filter('ylo_setupFrontPage', 'yloFrontpageSettings');
+
 
 // gère les champs user
 $yloC->add_filter('user_contactmethods', 'yloUserFields', 'editList', 10, 1);
@@ -48,3 +51,14 @@ $yloC->add_action('after_setup_theme', 'yloLoginForm', 'checkLogin');
 //gère l'éditeur pour écriture et d'édition de nouveaux posts
 $yloC->add_filter('ylo_new_post_link', 'yloNewPost', 'lien_nouvel_article');
 $yloC->add_action('ylo_new_post_editor', 'yloNewPost', 'nouveau', 10, 1);
+$yloC->add_action('ylo_lien_editer_supprimer', 'yloNewPost', 'lien_editer_supprimer');
+$yloC->add_action('ylo_edit_post_editor', 'yloNewPost', 'edit_post');
+$yloC->add_action('ylo_delete_current_post', 'yloNewPost', 'delete_post');
+
+
+
+// gère les éléments de menu pour les menus dynamiques dans l'admin
+$yloC->add_action('admin_init', 'yloAdminNavMenus', 'register_nav_menus');
+
+
+
