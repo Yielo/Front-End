@@ -50,17 +50,6 @@ class yieloCenter
 		else return false;
 	}
 	
-	public function setupAdmin(){
-		// ici chaque classe de la liste est includée et on exécute la méthode init de la classe,
-		// laquelle place les crochets nécessaire
-		$adminClasses = array(
-				'yloAdminFrontpageSettings',
-			);
-		foreach($adminClasses as $adminClass){
-			$myAdmin = $this->make($adminClass);
-			if($myAdmin) $myAdmin->init();
-		}
-	}
 	
 	public function add_action($hook, $objet, $methode = false, $priority = 10, $accepted_args = 1 ){
 		$callback = 'yloAction_'.$hook.'_'.$objet.'_'.$methode;
