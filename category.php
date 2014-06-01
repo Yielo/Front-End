@@ -9,9 +9,14 @@
 				<div class="ylo-col1">
 					<?php if($description = category_description()): ?>
 						<p class="ylo-category-description"><?php echo $description; ?></p>
+						<hr />
 					<?php endif; ?>
+					<?php if(isset($_GET['ylo_editor']) && $_GET['ylo_editor'] == 'nouveau' && current_user_can('edit_posts')) : ?>
+						<?php do_action('ylo_new_post_editor', get_query_var( 'cat' ));?>
+						
+					<?php else : ?>
 					<?php if(current_user_can('edit_posts')) :?>
-						<a href="<?php echo (home_url('/wp-admin/post-new.php')); ?>" >
+						<a href="<?php echo apply_filters('ylo_new_post_link', false); ?>" >
 							<button>Nouvel Article</button>
 						</a>
 					<?php endif;?>
@@ -39,6 +44,7 @@
 					<nav class="ylo-single-page-nav">
 							<?php posts_nav_link(); ?>
 					</nav>
+					<?php endif; ?>
 					&nbsp;
 				</div><!-- .ylo-col1 -->
 				<div class="ylo-col2">
