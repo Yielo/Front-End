@@ -8,7 +8,7 @@
 		<div class="presentation">
 				<div class="float-left">
 						<h2><?php $ylo_front->slogan(); ?></h2>
-						<a class="rollover" href="#third" title="Next Section"></a> 
+						<a class="rollover" href="#third" title="Next Section">&nbsp;</a> 
 	
 						<div id="ylo-front-connexion">
 						<?php if(is_user_logged_in()) : ?>
@@ -31,7 +31,7 @@
 									<input class="ylo-textfield" type="password" name="pwd" placeholder="Mot de passe" />
 									
 									<div class="ylo-checkbox">
-										<input type="checkbox" name="rememberme" />
+										<input type="checkbox" name="rememberme" value="forever"/>
 										<label for="rememberme" >Se souvenir <br />de moi</label>
 									</div>
 									<div class="ylo-width-fix">
@@ -71,12 +71,12 @@
 				<div id="char1" class="float-left">
 						<h2><?php $ylo_front->front3_titre1(); ?></h2>
 						<p><?php $ylo_front->front3_texte1(); ?></p>
-						<h2><?php $ylo_front->front3_titre2(); ?></h2>
-						<p><?php $ylo_front->front3_texte2(); ?></p>
-				</div>
-				<div id="char2" class="float-left">
 						<h2><?php $ylo_front->front3_titre3(); ?></h2>
 						<p><?php $ylo_front->front3_texte3(); ?></p>
+				</div>
+				<div id="char2" class="float-left">
+						<h2><?php $ylo_front->front3_titre2(); ?></h2>
+						<p><?php $ylo_front->front3_texte2(); ?></p>
 						<h2><?php $ylo_front->front3_titre4(); ?></h2>
 						<p><?php $ylo_front->front3_texte4(); ?></p>
 						<a class="rollover2" href="<?php $ylo_front->front3_lien(); ?>"></a> </div>
