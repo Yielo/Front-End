@@ -1,6 +1,6 @@
 /*
 Theme Name: Yielo
-Version: 0.4.4
+Version: 0.4.7
 Description: Th&egrave;me d&eacute;di&eacute; au site de Yielo
 Author: Communaut&eaute; Yielo
 
@@ -734,7 +734,6 @@ ul.ylo-search-user-results:after {
 }
 .ylo-member-page dd{margin: 0; padding-bottom: 3px; font-family: arial, sans-serif;}
 
-.ylo-member-page .inline dt, .ylo-member-page .inline dd{float: left;}
 .ylo-member-page .inline dd{padding-left: 15px;}
 .ylo-member-page .inline:after{content: ""; display: block; clear: left;}
 
@@ -903,13 +902,13 @@ position:absolute;
 #para1{
 	text-align: right;
 	width: 400px;
-	margin:150px 555px 0 0;
+	margin:80px 555px 0 0;
 }
 
 #para2{
 	
 	width: 400px;
-	margin:0px 50px 0 0;
+	margin:-20px 50px 0 0;
 }
 
 #para3{
