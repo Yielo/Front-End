@@ -60,7 +60,7 @@ class yloAdminNavMenus
 		$ylo_nouveau = 'ylo_editor=nouveau';
 		foreach($categories as $cat){
 			echo $link = get_category_link( $cat->cat_ID );
-			$url = (strpos('?', $link) === false )? $link.'?'.$ylo_nouveau : $link.'&'.$ylo_nouveau;
+			$url = (strpos($link, '?') === false )? $link.'?'.$ylo_nouveau : $link.'&'.$ylo_nouveau;
 			$retour .= '<option value="'.$url.'">'.'Nouvel article: '.$cat->cat_name."</option>\n";
 		}
 		return $retour;
