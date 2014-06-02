@@ -1,5 +1,6 @@
 <?php
 yieloCenter::includeClassFile('yloFrontpageSettings');
+yieloCenter::includeClassFile('yloPostNMailSettings');
 
 class yloAdminPageOptions
 {
@@ -8,6 +9,7 @@ class yloAdminPageOptions
 		$page = add_theme_page( __('Option du th&egrave;me Yielo'), __('Option du th&egrave;me Yielo'), 'manage_options', 'yielo_theme_options', array($this, 'display_de_la_page'));
 		add_action( 'admin_print_styles-' . $page, array($this, 'enqueue_admin_style') );
 		register_setting( 'yielo_theme_options', 'yielo_front_textes');
+		register_setting( 'yielo_theme_options', 'yielo_postnmail', array($this, 'postnmail_callback'));
 	}
 	
 	public function enqueue_admin_style(){
@@ -21,7 +23,7 @@ class yloAdminPageOptions
 		?>
 			<script type="text/javascript">
 				function yloActiveTab(tabId){
-					var pagesId = new Array('ylo-front-page-settings', 'ylo-autre-settings');
+					var pagesId = new Array('ylo-front-page-settings', 'ylo-autre-settings', 'ylo-post2mail-settings');
 					for( var id in pagesId){
 						var item = document.getElementById(pagesId[id]);
 						var itemLi = document.getElementById(pagesId[id]+'-tab');
@@ -44,6 +46,7 @@ class yloAdminPageOptions
 						<nav class="ylo-onglets-settings">
 							<ul>
 								<li id="ylo-front-page-settings-tab" class="current"><a href="#" onClick="yloActiveTab('ylo-front-page-settings');">Front Page</a></li>
+								<li id="ylo-post2mail-settings-tab"><a href="#rroo" onClick="yloActiveTab('ylo-post2mail-settings');">Emails</a></li>
 								<li id="ylo-autre-settings-tab"><a href="#" onClick="yloActiveTab('ylo-autre-settings');">Autre</a></li>
 							</ul>
 						</nav>
@@ -120,10 +123,28 @@ class yloAdminPageOptions
 							
 							
 						</div><!-- #ylo-front-page-settings -->
+						
+						<div id="ylo-post2mail-settings" class="ylo-setting-page ylo-hidden-setting-page">
+							<h1 class="ylo-main-titre" >La gestion des Emails</h1>
+							<p class="ylo-admin-box1">
+								C'est ici qu'on d&eacute;fini comment sont g&eacute;r&eacute;s les envois d'emails
+							</p>
+							<hr />
+							<h2>Configuration de l'envoi des emails lors de la publication d'articles</h2>
+							<div class="ylo-admin-box1">
+								<ul class="ylo-postnmail-setting">
+									<?php echo $this->display_category_email_settings();?>
+								</ul>
+							</div>
+							
+						</div>
+						
 						<div id="ylo-autre-settings" class="ylo-setting-page ylo-hidden-setting-page">
 							Autre
 						</div>
 							&nbsp;&nbsp; NB : N'oublies pas de cliquer sur "mettre &agrave; jour" 
+				
+							
 					</div>
 					<input type="submit" value="Mettre &agrave; jour" class="button button-primary" />
 				</form>
@@ -193,4 +214,102 @@ class yloAdminPageOptions
 		if($echo) echo $str;
 		return $str;
 	}
+	
+	protected function display_category_email_settings(){
+		$str = '';
+		$settings = new yloPostNMailSettings();
+		$cats = get_categories( array(
+				'type'                     => 'post',
+				'orderby'                  => 'count',
+				'order'                    => 'ASC',
+				'hide_empty'               => 0,
+				'taxonomy'                 => 'category',		
+			) );
+		foreach($cats as $cat){
+			$cat_ID = $cat->cat_ID;
+			$str .= '<li><h3>Cat&eacute;gorie : '.$cat->cat_name.'</h3><fieldset>';
+			if(count($settings->errors($cat_ID)) > 0){
+				$str .= '<ul class="ylo_errors">';
+				foreach($settings->errors($cat_ID) as $err) $str .= '<li>'.$err.'</li>';
+				$str .= '</ul>';
+			}
+			$str .= '<p><input type="checkbox" id="ylo_is_setup_'.$cat_ID.'"  name="yielo_postnmail['.$cat_ID.'][is_setup]" value="on" '.$settings->checked($cat_ID).' />';
+			$str .= '<label for="ylo_is_setup_'.$cat_ID.'" class="ylo-checkbox-label">'
+						.__('Activer l&#39;envoi par email des nouveaux articles de la cat&eacute;gorie : '.$cat->cat_name)
+						.'</label></p>';
+			$str .= '<p><label for="ylo_from_name'.$cat_ID.'">Nom du From <em>(Un nom court)</em> : </label>'
+						.'<input type="texte" id="ylo_from_name'.$cat_ID.'" name="yielo_postnmail['.$cat_ID.'][fromname]" class="ylo-text-field"  placeholder="Nom du champs From du mail " value="'.$settings->fromname($cat_ID).'" maxlength="16" /></p>';
+			$str .= '<p><label for="ylo_from_'.$cat_ID.'">From <em>(adresse email valide)</em> : </label>'
+						.'<input type="texte" id="ylo_from_'.$cat_ID.'" name="yielo_postnmail['.$cat_ID.'][from]" class="ylo-text-field"  placeholder="Champs From du mail envoy&eacute;" value="'.$settings->from($cat_ID).'" /></p>';
+			$str .= '<p><label for="ylo_to_'.$cat_ID.'">To <em>(adresse email valide)</em> : </label>'
+						.'<input type="texte" id="ylo_to_'.$cat_ID.'" name="yielo_postnmail['.$cat_ID.'][to]" class="ylo-text-field" placeholder="Champs To du mail envoy&eacute;" value="'.$settings->to($cat_ID).'" /></p>';
+			$str .= '</fieldset></li>';
+		}
+		return $str;
+	}
+	
+	public function postnmail_callback($yielo_postnmail){
+		$sanitized = array();
+		foreach($yielo_postnmail as $cat_ID => $values){
+			if(isset($values['is_setup']) && $values['is_setup'] == 'on' ){
+				$sanitized[$cat_ID]['cat_ID'] = $cat_ID;
+				$sanitized[$cat_ID]['errors'] = array();
+				if(!empty($values['fromname'])) $sanitized[$cat_ID]['fromname'] = substr($values['fromname'], 0, 16);
+				else 	$sanitized[$cat_ID]['fromname'] = substr(get_bloginfo('name'),0, 16);
+				if(isset($values['from']) && is_email($values['from']) ) $sanitized[$cat_ID]['from'] = $values['from'];
+				else {
+					$sanitized[$cat_ID]['errors'][] = __('Vous n&#39;avez pas fourni une adresse email &#39;FROM&#39; valide ! ');
+					$sanitized[$cat_ID]['from'] = '';
+				}
+				if(isset($values['to']) && is_email($values['to']) ) $sanitized[$cat_ID]['to'] = $values['to'];
+				else {
+					$sanitized[$cat_ID]['errors'][] = __('Vous n&#39;avez pas fourni une adresse email &#39;TO&#39; valide ! ');
+					$sanitized[$cat_ID]['to'] = '';
+				}
+				if(count($sanitized[$cat_ID]['errors']) == 0) $sanitized[$cat_ID]['is_setup'] = 'on';
+			}
+		}
+		return $sanitized;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
