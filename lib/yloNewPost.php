@@ -6,7 +6,7 @@ class yloNewPost
 	
 	public function lien_nouvel_article($url = ''){
 		$request = $url ? $url : $_SERVER['REQUEST_URI'] ;
-		if(strpos('?', $request) === false ) return $request.'?ylo_editor=nouveau';
+		if(strpos( $request, '?') === false ) return $request.'?ylo_editor=nouveau';
 		else return $request.'&ylo_editor=nouveau';
 	}
 	
@@ -19,14 +19,14 @@ class yloNewPost
 		if($post->post_author == $user_ID || current_user_can('edit_others_posts')){
 			if(current_user_can('edit_posts') || current_user_can('edit_others_posts')){
 				$url = $_SERVER['REQUEST_URI'];
-				$url = (strpos('?', $url) === FALSE) ? $url . '?'.$edit_tag : $url . '&'.$edit_tag;
+				$url = (strpos( $url, '?') === FALSE) ? $url . '?'.$edit_tag : $url . '&'.$edit_tag;
 				$str .= '<span class="ylo-link-edit-post">
 						<a href="'.$url.'" >&Eacute;diter</a>
 					</span>';
 			}
 			if(current_user_can('delete_posts')|| current_user_can('delete_others_posts')){
 				$url = $_SERVER['REQUEST_URI'];
-				$url = (strpos('?', $url) === FALSE) ? $url . '?'.$delete_tag : $url . '&'.$delete_tag;
+				$url = (strpos( $url, '?') === FALSE) ? $url . '?'.$delete_tag : $url . '&'.$delete_tag;
 				$str .= '<span class="ylo-link-delete-post">
 						<a href="'.$url.'" >Supprimer</a>
 					</span>';
