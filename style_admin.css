@@ -76,7 +76,7 @@ h1.ylo-main-titre {
 	box-shadow: 2px 2px 5px Yellow;
 }
 
-.ylo-admin-box1 textarea, .ylo-admin-box1 input[type="text"] {
+.ylo-admin-box1 textarea, .ylo-admin-box1 input[type="text"], .ylo-admin-box1 select {
 	width: 90%;
 	margin: 5px auto 10px;
 	display: block;
@@ -90,4 +90,50 @@ h1.ylo-main-titre {
 
 .ylo-hidden-setting-page {
 	display: none;
+}
+
+
+.ylo-postnmail-setting li {
+	display: block;
+	margin: 0;
+	padding: 10px;
+}
+
+.ylo-postnmail-setting fieldset {
+	border:1px #ccc solid;
+	border-radius: 5px;
+}
+
+.ylo-postnmail-setting p {
+	margin: 0;
+	padding: 5px 10px;
+}
+
+.ylo-postnmail-setting label {
+	width: 200px;
+	text-align: right;
+	display: inline-block;
+	padding: 0 5px;
+}
+
+.ylo-postnmail-setting label.ylo-checkbox-label {
+	text-align: left;
+	width: 700px;
+}
+
+.ylo-postnmail-setting .ylo-text-field{
+	width: 300px;
+	display: inline-block;
+}
+
+.ylo-postnmail-setting .ylo_errors {
+	margin-left: 15px;
+}
+
+.ylo-postnmail-setting .ylo_errors li{
+	display: list-item;
+	list-style: disc;
+	color: Tomato;
+	margin: 5px 5px 5px 20px;
+	padding: 0;
 }
