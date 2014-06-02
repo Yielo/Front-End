@@ -55,10 +55,11 @@ $yloC->add_action('ylo_lien_editer_supprimer', 'yloNewPost', 'lien_editer_suppri
 $yloC->add_action('ylo_edit_post_editor', 'yloNewPost', 'edit_post');
 $yloC->add_action('ylo_delete_current_post', 'yloNewPost', 'delete_post');
 
-
-
 // gère les éléments de menu pour les menus dynamiques dans l'admin
 $yloC->add_action('admin_init', 'yloAdminNavMenus', 'register_nav_menus');
 
-
+// gère l'envoi des email lors de la publication des articles
+$yloC->add_action('transition_post_status', 'yloPostNMailSettings', 'check_on_transition', 10, 3);
+$yloC->add_action('wp_insert_comment', 'yloPostNMailSettings', 'on_comment_insert', 10, 2 );
+$yloC->add_action('wp-mail.php', 'yloPostNMailSettings', 'intercept_setup');
 
