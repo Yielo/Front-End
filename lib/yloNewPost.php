@@ -45,7 +45,7 @@ class yloNewPost
 				<p><a href="<?php echo $post->guid;?>">Cliquer ici pour acc&eacute;der &agrave; l'article</a></p>
 				<?php 
 			}else{
-				echo '<h2><span>Nouvel article :</span></h2>';
+				echo '<h2 class="ylo-titre-editor ylo-post-article"><span>Nouvel article :</span></h2>';
 				$this->editor( '', '', 'ylo_new_post_nonce');
 			}			
 		}
@@ -61,7 +61,7 @@ class yloNewPost
 					<p><a href="<?php echo $post->guid;?>">Cliquer ici pour acc&eacute;der &agrave; l'article</a></p>
 				<?php 			
 			}else{
-				echo '<h2><span>Editer l&#39;article :</span></h2>';
+				echo '<h2 class="ylo-titre-editor ylo-post-article"><span>Editer l&#39;article :</span></h2>';
 				$this->editor( $post->post_title, $post->post_content, 'ylo_edit_post_nonce'); 			
 			}
 		}
@@ -103,21 +103,28 @@ class yloNewPost
 		);
 		?>
 				<form method="post">
-					<?php wp_nonce_field($nonce , $nonce);?>
-					<?php if(count($this->erreurs) > 0) {
-							echo '<ul class="ylo_erreurs">';
-							foreach($this->erreurs as $err) echo '<li>'.$err.'</li>';
-							echo '</ul>';
-						  }
-					?>
-					<div style="border:1px #ccc solid; margin: 15px auto;">
-						<h3 style="margin-top: 15px;">Le titre de l'article : <span>&nbsp:</span></h3>
-						<p><input style="width:80%; margin: 15px auto;" type="text" name="ylo_editor_post_title" value="<?php echo $title; ?>" /></p>
-						<h3 style="margin-top: 15px;">Le contenu de l'article : <span>&nbsp:</span></h3>
-						
-						<?php wp_editor($content, 'ylo_editor_article', $edit_args);?>
-					</div>
-					<input type="submit" value="valider" />
+					<div class="ylo-editor-content">
+						<?php wp_nonce_field($nonce , $nonce);?>
+						<?php if(count($this->erreurs) > 0) {
+								echo '<ul class="ylo_erreurs">';
+								foreach($this->erreurs as $err) echo '<li>'.$err.'</li>';
+								echo '</ul>';
+							  }
+						?>
+						<div>
+							<div class="ylo-edito-field">
+								<h3 class="ylo-titre-editor">Le titre de l'article : </h3>
+								<input type="text" name="ylo_editor_post_title" value="<?php echo $title; ?>" />
+							</div>
+							<div class="ylo-edito-field">
+								<h3 class="ylo-titre-editor">Le contenu de l'article : </h3>
+							</div>
+							<?php wp_editor($content, 'ylo_editor_article', $edit_args);?>
+						</div>
+						<div class="ylo-nouvel-article">
+							<input type="submit" value="valider" />
+						</div>
+					</div><!-- .ylo-editor-content -->
 				</form>
 				<?php 		
 	}
