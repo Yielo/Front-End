@@ -1,7 +1,7 @@
 	<div id="ylo-page">
 		<div id="ylo-action-box">
 		</div><!-- #ylo-action-box -->
-		<div id="ylo-content">
+		<div id="ylo-content" class="ylo-content">
 			<h1 class="ylo-main-title"><?php the_title(); ?></h1>
 			
 			<div id="ylo-main">
