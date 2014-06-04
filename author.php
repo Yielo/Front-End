@@ -4,11 +4,11 @@
 	<div id="ylo-page" class="ylo-member-page">
 		<?php get_template_part('template_parts/top', 'actionbox'); ?>
 		
-		<div id="ylo-content">		
+		<div id="ylo-content" class="ylo-content">		
 			<div id="ylo-main">
 				<div class="ylo-col1">
 				
-				<h2 class="ylo-titre-membre"><?php $membre->first_name(); ?> <?php $membre->last_name(); ?> <span><?php echo substr($membre->ylo_competences, 0, 30); ?></span></h2>
+				<h2 class="ylo-titre-membre"><?php $membre->first_name(); ?> <?php $membre->last_name(); ?> <span><?php echo substr($membre->ylo_competences, 0, 25); ?></span></h2>
 				
 				<div class="ylo-fiche-image"><?php $membre->get_avatar(); ?></div>
 
@@ -26,7 +26,7 @@
 				<div class="ylo-send-message">
 					<?php if($membre->is_envoi_reussi()) : ?>
 						<hr>
-						<h4>Votre message a bien &eacute;t&eacute; envoy&eacute; : </h3>
+						<h4>Votre message a bien &eacute;t&eacute; envoy&eacute; : </h4>
 						<hr>
 						<p><em>Votre message à <?php $membre->first_name(); ?> <?php $membre->last_name(); ?>: </em>
 							<hr />
