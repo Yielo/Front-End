@@ -29,7 +29,7 @@
 									
 									<input class="ylo-textfield" type="text" name="log" placeholder="Login" /> 
 									<input class="ylo-textfield" type="password" name="pwd" placeholder="Mot de passe" />
-									
+									<input type="hidden" name="ylo_custom_login_redirect" value="<?php $ylo_front->admin_redirect_url();?>" />
 									<div class="ylo-checkbox">
 										<input type="checkbox" name="rememberme" value="forever"/>
 										<label for="rememberme" >Se souvenir <br />de moi</label>
