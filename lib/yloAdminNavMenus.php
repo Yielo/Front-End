@@ -23,7 +23,8 @@ class yloAdminNavMenus
 					<option value="<?php echo home_url('/#second');?>">Accueil-Troisi&egrave;me section</option>
 					<option disabled>---------</option>
 					<?php echo $this->get_liens_nouveaux_posts();?>
-					
+					<option disabled>---------</option>
+					<option value="<?php echo add_query_arg('ylo_deconnexion', 'deconnecter', home_url(''));?>">Lien de d&eacute;connexion</option>
 				</select>
 			</label>
 		</p>
@@ -65,4 +66,5 @@ class yloAdminNavMenus
 		}
 		return $retour;
 	}
+	
 }
