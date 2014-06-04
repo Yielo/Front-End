@@ -11,7 +11,7 @@ $yloForm = apply_filters('ylo_signup_form', false );
 	<div id="ylo-page">
 		<?php get_template_part('template_parts/top', 'actionbox'); ?>
 		
-		<div id="ylo-content">		
+		<div id="ylo-content" class="ylo-content">		
 			<h1 class="ylo-main-title">Inscription</h1>
 			<div id="ylo-main">
 				<div class="ylo-col1">
@@ -32,11 +32,11 @@ $yloForm = apply_filters('ylo_signup_form', false );
 								tu es donc d&eacute;j&agrave; inscrit.</em>					
 							</p>
 							<p> Si tu n'es pas <?php echo esc_html($membre->display_name); ?>, ou que tu veux inscrire quelqu'un d'autre, 
-								tu dois d'abord te <a href="<?php wp_logout(); ?>">d&eacute;connecter (en cliquant ici par exemple)</a>
+								tu dois d'abord te <a href="<?php echo wp_logout_url( $_SERVER['REQUEST_URI'] ); ?>">d&eacute;connecter (en cliquant ici par exemple)</a>
 							</p>						
 						</div>
 
-					<?php elseif($yloForm->is_successfull_signup()): ?>
+					<?php elseif($yloForm->is_successfull_signup() || isset($_POST['ylo_is_login_on_signup']) && $_POST['ylo_is_login_on_signup'] == 'true'): ?>
 						<div class="ylo-form-dialogue">
 							<h3>Inscrition r&eacute;ussie</h3>
 							<p>Bienvenue dans la communaut&eacute; Yielo
@@ -44,7 +44,26 @@ $yloForm = apply_filters('ylo_signup_form', false );
 							</p>
 							<div id="ylo-login-box">
 								<h3>Identifiez-vous : </h3>
-								<?php wp_login_form(array( 'value_username' => $yloForm->value('ylo_user_login', false))); ?>
+								<?php do_action('ylo_custom_login_error'); ?>
+								<?php $ylo_front = apply_filters('ylo_setupFrontPage', false);?>
+								<form name="loginform" id="loginform" a method="post">
+									<?php wp_nonce_field('ylo_custom_login_nonce', 'ylo_custom_login_nonce');?>
+									<input type="hidden" name="ylo_custom_login_redirect" value="<?php $ylo_front->admin_redirect_url();?>" />
+									<input type="hidden" name="ylo_is_login_on_signup" value="true" />
+									<p class="login-username">
+										<label for="user_login">Identifiant</label>
+										<input name="log" id="user_login" class="input" value="<?php echo $yloForm->value('ylo_user_login', false);?>" size="20" type="text">
+									</p>
+									<p class="login-password">
+										<label for="user_pass">Mot de passe</label>
+										<input name="pwd" id="user_pass" class="input" value="" size="20" type="password">
+									</p>
+									
+									<p class="login-remember"><label><input name="rememberme" id="rememberme" value="forever" type="checkbox"> Se souvenir de moi</label></p>
+									<p class="login-submit">
+										<input name="wp-submit" id="wp-submit" class="button-primary" value="Se connecter" type="submit">
+									</p>
+								</form>
 							</div>
 						</div>
 					<?php else :?>
@@ -177,5 +196,4 @@ $yloForm = apply_filters('ylo_signup_form', false );
 <div style="padding: 10px;" >
 
 </div>
-<?php //// get_sidebar(); ?>
 <?php get_footer(); ?>
