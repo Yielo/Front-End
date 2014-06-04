@@ -11,7 +11,7 @@ $yloForm = apply_filters('ylo_update_form', false );
 	<div id="ylo-page">
 		<?php get_template_part('template_parts/top', 'actionbox'); ?>
 		
-		<div id="ylo-content">		
+		<div id="ylo-content" class="ylo-content">		
 			<h1 class="ylo-main-title">Votre Profil</h1>
 			<div id="ylo-main">
 				<div class="ylo-col1">
