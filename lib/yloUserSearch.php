@@ -24,7 +24,7 @@ class yloUserSearch
 		$offset = intval($this->nb) * intval($this->page);
 		$resultat = $this->queryUsers($search, $this->nb, $offset);
 		$this->displayResultat($resultat);
-		echo '<div class="ylo-nav-users">'.$this->displayLiens().'</div>';
+		echo '<div class="ylo-cat-page-nav">'.$this->displayLiens().'</div>';
 	}
 	
 	protected function queryUsers($search, $nb = 20, $offset = 0){
@@ -158,7 +158,7 @@ class yloUserSearch
 		$recherche = $champs.'='.urlencode($search).'&'.$champs.'_p='.$page;
 		$new_parametres .= empty($new_parametres) ? $recherche : '&'.$recherche;
 		$req = '?'.$new_parametres;
-		return $req;
+		return add_query_arg('ylotype', 'membre', $req);
 	}
 	
 	protected function displayLiens($page = null, $prec = null, $suiv = null, $debut = null, $fin = null){
@@ -199,4 +199,45 @@ class yloUserSearch
 
 	}
 	
+	public function page_hooks(){
+		add_filter('get_pagenum_link', array($this, 'pagination_articles'), 10, 1);
+		add_action('wp_head', array($this, 'type_script' ));
+	}
+	
+	public function pagination_articles($lien){
+		return add_query_arg('ylotype', 'article', $lien);
+	}
+	
+	public function type_script(){
+		?>
+		<script type="text/javascript">
+		function yloSearchType(type){
+			var boutonMembre = document.getElementById('ylo-bouton-search-type-membre');
+			var boutonArticle = document.getElementById('ylo-bouton-search-type-article');
+			var resultatsMembre = document.getElementById('ylo-resultats-type-membre');
+			var resultatsArticle = document.getElementById('ylo-resultats-type-article');
+			var ylotype = document.getElementById('ylo-type-de-recherche');
+			if(type == 'membre'){
+				boutonMembre.className = 'ylo-search-type-active';
+				boutonArticle.className = 'ylo-search-type-inactive';
+				resultatsMembre.style.display = 'block';
+				resultatsArticle.style.display = 'none';
+				ylotype.value = 'membre';
+			}else if(type == 'article'){
+				boutonMembre.className = 'ylo-search-type-inactive';
+				boutonArticle.className = 'ylo-search-type-active';
+				resultatsMembre.style.display = 'none';
+				resultatsArticle.style.display = 'block';
+				ylotype.value = 'article';
+			}
+		}
+
+		function checkFormulaireVide(fieldId){
+			var field = document.getElementById(fieldId);
+			if(field.value == '') return false;
+			else return true;
+		}
+		</script>
+		<?php 
+	}
 }
