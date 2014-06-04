@@ -9,6 +9,7 @@ class yloUserFields
 			'ylo_formation' => 'Ta formation',
 			'ylo_experiences_pro' => 'Tes exp&eacute;riences professionnelles',
 			'ylo_temoignage'	=> 'Ton t&eacute;moignage',
+			//'ylo_avatar_upload' => 'Ton avatar',
 		);
 	
 	protected static $champsNatifs = array(
