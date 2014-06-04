@@ -61,6 +61,11 @@ class yloAdminPageOptions
 								<h3>Slogan : </h3>
 								<textarea name="yielo_front_textes[slogan]" ><?php $front->admin_slogan(); ?></textarea>
 							</div>
+							<div class="ylo-admin-box1">
+								<h3>Redirection apr&egrave;s login</h3>
+								<h4>Page ou Cat&eacute;gorie de redirection :</h4> 
+								<?php $this->display_cible_de_redirection($front, true);?>
+							</div>
 							
 							<hr />
 							<h2>Deuxi&egrave;me section <em>(Pr&eacute;sentation)</em> :</h2>
@@ -200,7 +205,7 @@ class yloAdminPageOptions
 	// $front est une instance de la classe yloFrontpageSettings
 	protected function display_page_select($front, $echo = true){
 		$pages = $this->get_les_pages();
-		$old_url = $front->admin_FrontTextes['front3_lien'];
+		$old_url = $front->FrontTextes['front3_lien'];
 		$str = '<select name="yielo_front_textes[front3_lien]">';
 		foreach($pages->inscription as $page)
 			$str .= '<option value="'.esc_attr($page->guid).'" '.selected($old_url, $page->guid, false).'>'.esc_attr($page->post_title).' (page d&#39;inscription)</option>';
@@ -256,7 +261,9 @@ class yloAdminPageOptions
 				$sanitized[$cat_ID]['errors'] = array();
 				if(!empty($values['fromname'])) $sanitized[$cat_ID]['fromname'] = substr($values['fromname'], 0, 16);
 				else 	$sanitized[$cat_ID]['fromname'] = substr(get_bloginfo('name'),0, 16);
-				if(isset($values['from']) && is_email($values['from']) ) $sanitized[$cat_ID]['from'] = $values['from'];
+				if(isset($values['from']) && is_email($values['from']) ){
+					$sanitized[$cat_ID]['from'] = $values['from'];
+				}
 				else {
 					$sanitized[$cat_ID]['errors'][] = __('Vous n&#39;avez pas fourni une adresse email &#39;FROM&#39; valide ! ');
 					$sanitized[$cat_ID]['from'] = '';
@@ -270,6 +277,49 @@ class yloAdminPageOptions
 			}
 		}
 		return $sanitized;
+	}
+	
+	protected function display_cible_de_redirection($front, $echo = false){
+		$initial = $front->FrontTextes['redirect_url'];
+		$first_opt = '';
+		$cat_opts = '';
+		$page_opts = '';
+		$cat_defaut = get_option('default_category');
+		$cats = get_categories( array(
+				'type'                     => 'post',
+				'orderby'                  => 'count',
+				'order'                    => 'ASC',
+				'hide_empty'               => 0,
+				'taxonomy'                 => 'category',
+		) );
+		foreach($cats as $cat){
+			$cat_url = get_category_link( $cat->cat_ID );
+			if($cat->cat_ID == $cat_defaut){
+				$first_opt = '<option value="'.$cat_url.'" '.selected($initial, $cat_url, false)." >Cat&eacute;gorie par d&eacute;faut : ".$cat->cat_name.'</option>';
+			}else{
+				$cat_opts .= '<option value="'.$cat_url.'" '.selected($initial, $cat_url, false)." >Cat&eacute;gorie : ".$cat->cat_name.'</option>';
+			}
+		}
+		unset($cats);
+		$pages = get_pages(array(
+				'sort_order' => 'ASC',
+				'sort_column' => 'ID',
+				'post_type' => 'page',
+		));
+		foreach($pages as $page){
+			$page_url = $page->guid;
+			$page_opts .=	'<option value="'.$page_url.'" '.selected($initial, $page_url, false)." >Page : ".$page->post_title.'</option>';
+		}
+		unset($pages);
+		$str = '<select name="yielo_front_textes[redirect_url]">';
+		$str .= $first_opt;
+		$str .= '<option disabled>----------------------------</option>';
+		$str .= $cat_opts;
+		$str .= '<option disabled>----------------------------</option>';
+		$str .= $page_opts;
+		$str .= '</select>';
+		if($echo) echo $str;
+		return $str;		
 	}
 }
 
