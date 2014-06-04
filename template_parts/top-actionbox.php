@@ -17,7 +17,7 @@
 			<form method="post" action="">
 				<?php wp_nonce_field('ylo_custom_login_nonce', 'ylo_custom_login_nonce');?>
 				<div class="ylo-checkbox">
-					<input type="checkbox" name="rememberme" />
+					<input type="checkbox" name="rememberme" value="forever" />
 					<label for="rememberme" >Se souvenir <br />de moi</label>
 				</div>
 				<input class="ylo-textfield" type="text" name="log" placeholder="Login" /> 
