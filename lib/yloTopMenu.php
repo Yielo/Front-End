@@ -13,11 +13,13 @@ class yloTopMenu
 	public function setupMenu(){
 		register_nav_menus(array(
 				'top-menu-visiteur'	=> 	__('Menu principal - Visiteurs non identifi&eacute;s', 'yielo'),
-				'top-menu-membre'	=>	__('Menu principal - Membres identifi&eacute;s', 'yielo'),	
+				'top-menu-membre'	=>	__('Menu principal - Membres identifi&eacute;s', 'yielo'),
+				'ylo-footer'		=>	__('Menu du pied de page', 'yielo'),
 			));
 		add_filter('ylo_top_menu', array($this, 'selectMenu'));
 		add_filter('wp_nav_menu_objects', array( $this, 'first_last_item_classes') );
 	}
+	
 	
 	public function selectMenu(){
 		$menu = array(
