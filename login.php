@@ -8,7 +8,7 @@ get_header(); ?>
 	<div id="ylo-page">
 		<div id="ylo-action-box">
 		</div><!-- #ylo-action-box -->
-		<div id="ylo-content">
+		<div id="ylo-content" class="ylo-content">
 			<h1 class="ylo-main-title"><?php the_title(); ?></h1>
 			
 			<div id="ylo-main">
@@ -30,8 +30,8 @@ get_header(); ?>
 								</ul>
 							</p>
 						<?php else : ?>
-							<h3>Identifiez-vous : </h3>
-							<?php wp_login_form(); ?>
+							<?php get_template_part('template_parts/loginform');?>
+							
 						<?php endif; ?>
 					</div>
 				</div><!-- .ylo-full-width -->
