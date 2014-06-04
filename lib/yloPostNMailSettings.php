@@ -78,13 +78,13 @@ class yloPostNMailSettings
 			if(isset($opt['is_setup']) && $opt['is_setup'] == 'on'){
 				$to = $opt['to'];
 				$headers = array('From: '.$opt['fromname'].' <'.$opt['from'].'>', 'Content-Type: text/plain; charset='.get_option('blog_charset'));
-				$subject = __('Réponse au message : ').$message->post_title.__(' par ').$author_name;
 				if($comment->user_id){
 					$author = get_user_by('id', $comment->user_id);
 					$author_name = $author->display_name;
 				}else{
 					$author_name = $comment->comment_author . ' ('.$comment->comment_author_email.')';
-				}
+				}				
+				$subject = __('Réponse au message : ').$message->post_title.__(' par ').$author_name;
 				$content = __('Réponse au message : ').$message->post_title."\n".__('Ecrit par ').$author_name."\n\n";
 				$content .= $comment->comment_content;
 				$curr_comment = $comment;
@@ -121,8 +121,6 @@ class yloPostNMailSettings
 	public function intercept_setup(){
 		// sert a empécher la publication des messages reçus par email ayant été préalablement envoyés par le site
 		add_filter( 'is_email', array($this, 'intercept_check'), 10, 3 );
-		// just en plus, pour éviter la création de paragraphes
-		add_filter('wp_mail_original_content', 'nl2br', 10, 1);
 	}
 	
 	public function intercept_check($is_email, $email, $issue){
