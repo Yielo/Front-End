@@ -4,7 +4,7 @@
 	<meta charset="<?php bloginfo('charset'); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php bloginfo('stylesheet_url'); ?>" />
 	<title><?php wp_title('|', true, 'left'); ?></title>
-	<link href='http://fonts.googleapis.com/css?family=Josefin+Slab:400,700' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Slab:400,700|Audiowide' rel='stylesheet' type='text/css'/>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
 	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
 	<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/scripts/jquery.parallax-1.1.3.js"></script>
