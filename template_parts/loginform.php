@@ -4,7 +4,6 @@
 							<form name="loginform" id="loginform" a method="post">
 								<?php wp_nonce_field('ylo_custom_login_nonce', 'ylo_custom_login_nonce');?>
 								<input type="hidden" name="ylo_custom_login_redirect" value="<?php $ylo_front->redirect_url();?>" />
-								<?php $ylo_front->redirect_url();?>
 								<p class="login-username">
 									<label for="user_login">Identifiant</label>
 									<input name="log" id="user_login" class="input" value="" size="20" type="text">
