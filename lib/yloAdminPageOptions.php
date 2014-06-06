@@ -8,8 +8,10 @@ class yloAdminPageOptions
 	public function setup(){
 		$page = add_theme_page( __('Option du th&egrave;me Yielo'), __('Option du th&egrave;me Yielo'), 'manage_options', 'yielo_theme_options', array($this, 'display_de_la_page'));
 		add_action( 'admin_print_styles-' . $page, array($this, 'enqueue_admin_style') );
-		register_setting( 'yielo_theme_options', 'yielo_front_textes');
+		register_setting( 'yielo_theme_options', 'yielo_front_textes', array($this, 'front_textes_callback'));
 		register_setting( 'yielo_theme_options', 'yielo_postnmail', array($this, 'postnmail_callback'));
+		register_setting( 'yielo_theme_options', 'yielo_divers', array($this, 'divers_callback'));
+		
 	}
 	
 	public function enqueue_admin_style(){
@@ -142,10 +144,35 @@ class yloAdminPageOptions
 								</ul>
 							</div>
 							
-						</div>
+						</div><!-- #ylo-post2mail-settings -->
 						
 						<div id="ylo-autre-settings" class="ylo-setting-page ylo-hidden-setting-page">
-							Autre
+							<?php $ylo_divers = get_option('yielo_divers');?>
+							<h1 class="ylo-main-titre" >Options diverses</h1>
+							<p class="ylo-admin-box1">
+								C'est ici qu'on trouve les options qui ne rentrent pas dans une autre cat&eacute;gorie.
+							</p>
+							<hr />
+							<h2>Configuration de la page de Conditions G&eacute;nerales</h2>
+						
+							<div class="ylo-admin-box1">
+								<p>
+									<label for="ylo_cg_label"><h4>Phrase du champs "Conditions G&eacute;n&eacute;rales" : </h4></label>
+									<input type="text" id="ylo_cg_label" name="yielo_divers[cg_label]" class="ylo-text-field"  placeholder="Label des conditions g&eacute;n&eacute;rales" value="<?php esc_attr_e($ylo_divers['cg_label']);?>" />
+								</p>
+								<p>
+									<label for="ylo_cg_lien"><h4>Intitul&eacute; du lien des "Conditions G&eacute;n&eacute;rales" : </h4></label>
+									<input type="text" id="ylo_cg_lien" name="yielo_divers[cg_lien]" class="ylo-text-field"  placeholder="Intitul&eacute; du lien" value="<?php esc_attr_e($ylo_divers['cg_lien']);?>" />
+								</p>
+								<p>
+									<label for="ylo_cg_url"><h4>Page ou Cat&eacute;gorie de redirection :</h4> </label>
+									<select name="yielo_divers[cg_url]" id="ylo_cg_url">
+										<?php echo $this->display_options_pages(esc_url($ylo_divers['cg_url']));?>
+									</select>
+								</p>
+
+								
+							</div>
 						</div>
 							&nbsp;&nbsp; NB : N'oublies pas de cliquer sur "mettre &agrave; jour" 
 				
@@ -243,11 +270,11 @@ class yloAdminPageOptions
 						.__('Activer l&#39;envoi par email des nouveaux articles de la cat&eacute;gorie : '.$cat->cat_name)
 						.'</label></p>';
 			$str .= '<p><label for="ylo_from_name'.$cat_ID.'">Nom du From <em>(Un nom court)</em> : </label>'
-						.'<input type="texte" id="ylo_from_name'.$cat_ID.'" name="yielo_postnmail['.$cat_ID.'][fromname]" class="ylo-text-field"  placeholder="Nom du champs From du mail " value="'.$settings->fromname($cat_ID).'" maxlength="16" /></p>';
+						.'<input type="text" id="ylo_from_name'.$cat_ID.'" name="yielo_postnmail['.$cat_ID.'][fromname]" class="ylo-text-field"  placeholder="Nom du champs From du mail " value="'.$settings->fromname($cat_ID).'" maxlength="16" /></p>';
 			$str .= '<p><label for="ylo_from_'.$cat_ID.'">From <em>(adresse email valide)</em> : </label>'
-						.'<input type="texte" id="ylo_from_'.$cat_ID.'" name="yielo_postnmail['.$cat_ID.'][from]" class="ylo-text-field"  placeholder="Champs From du mail envoy&eacute;" value="'.$settings->from($cat_ID).'" /></p>';
+						.'<input type="text" id="ylo_from_'.$cat_ID.'" name="yielo_postnmail['.$cat_ID.'][from]" class="ylo-text-field"  placeholder="Champs From du mail envoy&eacute;" value="'.$settings->from($cat_ID).'" /></p>';
 			$str .= '<p><label for="ylo_to_'.$cat_ID.'">To <em>(adresse email valide)</em> : </label>'
-						.'<input type="texte" id="ylo_to_'.$cat_ID.'" name="yielo_postnmail['.$cat_ID.'][to]" class="ylo-text-field" placeholder="Champs To du mail envoy&eacute;" value="'.$settings->to($cat_ID).'" /></p>';
+						.'<input type="text" id="ylo_to_'.$cat_ID.'" name="yielo_postnmail['.$cat_ID.'][to]" class="ylo-text-field" placeholder="Champs To du mail envoy&eacute;" value="'.$settings->to($cat_ID).'" /></p>';
 			$str .= '</fieldset></li>';
 		}
 		return $str;
@@ -279,11 +306,26 @@ class yloAdminPageOptions
 		return $sanitized;
 	}
 	
+	public function front_textes_callback($front_textes){
+		$retour = array();
+		foreach($front_textes as $key => $value){
+			$retour[$key] = sanitize_text_field(nl2br($value));
+		}
+		return $retour;
+	}
+	
+	public function divers_callback($front_textes){
+		$retour = array();
+		foreach($front_textes as $key => $value){
+			$retour[$key] = sanitize_text_field($value);
+		}
+		return $retour;
+	}
+	
 	protected function display_cible_de_redirection($front, $echo = false){
 		$initial = $front->FrontTextes['redirect_url'];
 		$first_opt = '';
 		$cat_opts = '';
-		$page_opts = '';
 		$cat_defaut = get_option('default_category');
 		$cats = get_categories( array(
 				'type'                     => 'post',
@@ -301,16 +343,7 @@ class yloAdminPageOptions
 			}
 		}
 		unset($cats);
-		$pages = get_pages(array(
-				'sort_order' => 'ASC',
-				'sort_column' => 'ID',
-				'post_type' => 'page',
-		));
-		foreach($pages as $page){
-			$page_url = $page->guid;
-			$page_opts .=	'<option value="'.$page_url.'" '.selected($initial, $page_url, false)." >Page : ".$page->post_title.'</option>';
-		}
-		unset($pages);
+		$page_opts = $this->display_options_pages($initial);
 		$str = '<select name="yielo_front_textes[redirect_url]">';
 		$str .= $first_opt;
 		$str .= '<option disabled>----------------------------</option>';
@@ -320,6 +353,20 @@ class yloAdminPageOptions
 		$str .= '</select>';
 		if($echo) echo $str;
 		return $str;		
+	}
+	
+	protected function display_options_pages($initial = ''){
+		$page_opts = '';
+		$pages = get_pages(array(
+				'sort_order' => 'ASC',
+				'sort_column' => 'ID',
+				'post_type' => 'page',
+		));
+		foreach($pages as $page){
+			$page_url = $page->guid;
+			$page_opts .=	'<option value="'.$page_url.'" '.selected($initial, $page_url, false)." >Page : ".$page->post_title.'</option>';
+		}
+		return $page_opts;
 	}
 }
 
