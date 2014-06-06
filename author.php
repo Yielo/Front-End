@@ -8,17 +8,21 @@
 			<div id="ylo-main">
 				<div class="ylo-col1">
 				
-				<h2 class="ylo-titre-membre"><?php $membre->first_name(); ?> <?php $membre->last_name(); ?> <span><?php echo substr($membre->ylo_competences, 0, 25); ?></span></h2>
+				<h2 class="ylo-titre-membre"><?php $membre->first_name(); ?> <?php $membre->last_name(); ?> <span><?php $membre->displayTitre(); ?></span></h2>
 				
 				<div class="ylo-fiche-image"><?php $membre->get_avatar(); ?></div>
 
-
+				<?php $membre->displayInfo('Pr&eacute;nom', 'simple', 'first_name');?>
+				<?php $membre->displayInfo('M&eacute;tier ou qualit&eacute;', 'simple', 'ylo_metier');?>
+				<?php $membre->displayInfo('Site web', 'url', 'user_url');?>
 				<?php $membre->displayInfo('Ville', 'ville');?>
 				<?php $membre->displayInfo('Eglise', 'simple', 'ylo_eglise');?>
 				<?php $membre->displayInfo('Comp&eacute;tences', 'simple', 'ylo_competences');?>
 				<?php $membre->displayInfo('Formation', 'simple', 'ylo_formation');?>
 				<?php $membre->displayInfo('Experience professionnelle', 'large', 'ylo_experiences_pro');?>
+				<?php $membre->displayInfo('Projets r&eacute;alis&eacute; <em>(seul ou en groupe)</em>', 'large', 'ylo_projet_realises');?>
 				<?php $membre->displayInfo('T&eacute;moignage', 'large', 'ylo_temoignage');?>
+				<?php $membre->displayInfo('Coordonn&eacute;es et autres infos', 'large', 'description');?>
 				
 				
 				
@@ -30,7 +34,7 @@
 						<hr>
 						<p><em>Votre message à <?php $membre->first_name(); ?> <?php $membre->last_name(); ?>: </em>
 							<hr />
-							<?php $membre->le_message();?>
+							<?php $membre->le_message(true);?>
 							
 						</p>
 					<?php else : ?>
