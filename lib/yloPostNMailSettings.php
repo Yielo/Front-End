@@ -126,7 +126,13 @@ class yloPostNMailSettings
 	public function intercept_check($is_email, $email, $issue){
 		$found = false;
 		foreach($this->db_option as $opt){
-			if($email == $opt['from'] || strpos($email, $opt['from'])) $found = true;
+			if(!empty($opt['from'])){
+				$from = trim($opt['from']);
+				if(!empty($from)){
+					if($email == $from || strpos($email, $from)) $found = true;
+				}
+				
+			}
 		}
 		if($found) add_filter('wp_insert_post_empty_content', array($this, 'intercept'), 10, 2);
 	}
