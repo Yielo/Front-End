@@ -15,9 +15,9 @@
 	<?php //TODO le script suivant n'est valable que pour la front page, il est a inclure conditionnellement?>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#nav').localScroll(1900);
+			$('#ylo-top-menu').localScroll(1900);
 			$('#intro').localScroll(800);
-	
+
 			$('#intro').parallax("50%", 0.1);
 			$('.logo').parallax("50%", 0.2);
 			$('.tablette').parallax("50%", 4);
@@ -45,7 +45,7 @@
 	
 	<?php wp_head();?>
 </head>
-<body <?php body_class();?>>
+<body <?php body_class();?> >
 	<div id="ylo-page-wrapper">
 		<nav id="ylo-top-menu">
 			<?php wp_nav_menu(apply_filters('ylo_top_menu', array())) ;?>
