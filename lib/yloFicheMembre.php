@@ -37,6 +37,12 @@ class yloFicheMembre
 		return $this;
 	}
 	
+	public function displayTitre(){
+		$metier = $this->ylo_metier;
+		if(empty($metier)) echo substr($this->ylo_competences, 0, 25);
+		else echo $metier;
+	}
+	
 	public function get_avatar(){
 		$id = intval($this->membre->ID);
 		if($id > 0 ){
@@ -57,7 +63,10 @@ class yloFicheMembre
 			if(!empty($valeur)) $str = $this->display_info_simple($label, esc_html($valeur), 'inline');
 		}elseif($format == 'large'){
 			$valeur = $this->$champs;
-			if(!empty($valeur)) $str = $this->display_info_simple($label, esc_html($valeur), 'ylo_large');
+			if(!empty($valeur)) $str = $this->display_info_simple($label, esc_html($valeur), 'inline');
+		}elseif($format == 'url'){
+			$valeur = $this->$champs;
+			if(!empty($valeur)) $str = $this->display_info_url($label, esc_url($valeur), 'inline');			
 		}
 		if($echo) echo $str;
 		return $str;
@@ -68,8 +77,12 @@ class yloFicheMembre
 		return ($this->is_envoi && (count($this->erreurs_envoi) == 0));
 	}
 	
-	public function le_message(){
-		echo $this->message;
+	public function le_message($html = false){
+		if($html){
+			echo htmlentities(stripcslashes($this->message));
+		}else {
+			echo $this->message;
+		}
 	}
 	
 	public function erreurs_envoi(){
@@ -99,7 +112,7 @@ class yloFicheMembre
 		$from_email = $sender->user_email;
 		$headers[] = 'From: '.$from_prenom.' '.$from_nom.' <'.$from_email.'>';
 		$pre_message = __("Ce message vous est envoyé via le site Yielo.net\n par $from_prenom $from_nom ($from_email) \n------------\n");
-		if(wp_mail($to, $this->sujet, $pre_message.$this->message, $headers)){
+		if(wp_mail($to, $this->sujet, $pre_message.stripcslashes($this->message), $headers)){
 			return true;
 		}else{
 			$this->erreurs_envoi[] = __('L&#39;envoi a &eacute;chou&eacute; &agrave; cause d&#39;une erreur interne, veuiller informer l&#39;administrateur du site.');
@@ -113,6 +126,14 @@ class yloFicheMembre
 					<dd>'.$valeur.'</dd>
 				</dl>';
 	}
+
+	protected function display_info_url($label, $url, $class){
+		return '<dl class="'.$class.'">
+		<dt>'.$label.'</dt>
+		<dd><a href="'.$url.'" target="_blank">'.$url.'</a></dd>
+		</dl>';
+	}
+	
 	
 
 	
