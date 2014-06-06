@@ -2,7 +2,7 @@
 <?php $ylo_front = apply_filters('ylo_setupFrontPage', false);?>
 
 <!--HOME-->
-<div id="intro">
+<div id="intro" >
 		<div class="logo"></div>
 		<div class="tablette"></div>
 		<div class="presentation">
