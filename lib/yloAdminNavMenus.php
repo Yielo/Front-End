@@ -18,9 +18,9 @@ class yloAdminNavMenus
 			<label class="howto" for="custom-menu-item-url">
 				<span><?php _e('URL'); ?></span><br />
 				<select style="width:98%;" id="custom-menu-item-url" name="menu-item[<?php echo $_nav_menu_placeholder; ?>][menu-item-url]" type="text" class="code menu-item-textbox"  >
-					<option value="<?php echo home_url('');?>">Accueil - Premi&egrave;re section</option>
+					<option value="<?php echo home_url('/#intro');?>">Accueil-Premi&egrave;re section</option>
 					<option value="<?php echo home_url('/#second');?>">Accueil-Deuxi&egrave;me section</option>
-					<option value="<?php echo home_url('/#second');?>">Accueil-Troisi&egrave;me section</option>
+					<option value="<?php echo home_url('/#third');?>">Accueil-Troisi&egrave;me section</option>
 					<option disabled>---------</option>
 					<?php echo $this->get_liens_nouveaux_posts();?>
 					<option disabled>---------</option>
