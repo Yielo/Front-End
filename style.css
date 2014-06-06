@@ -1,6 +1,6 @@
 /*
 Theme Name: Yielo
-Version: 0.5
+Version: 0.5.3
 Description: Th&egrave;me d&eacute;di&eacute; au site de Yielo
 Author: Communaut&eaute; Yielo
 
@@ -641,6 +641,14 @@ h2.ylo-titre-triangle span {
 	float: left;
 }
 
+.ylo-form-div .ylo-small {
+	font-size: 0.8em;
+	text-transform: none;
+	font-weight: normal;
+	font-stretch: condensed ;
+	color: #d29b09;
+}
+
 .ylo-form-error ul {
 	margin: 0;
 	padding: 20px 0 0 20px;	
@@ -655,7 +663,35 @@ h2.ylo-titre-triangle span {
 
 .ylo-form-div label {color: #f2bb29; text-transform: uppercase; width: 175px; padding: 5px 0 3px 0;}
 .ylo-form-div ul.ylo-form-error+label {color: red;}
-.ylo-form-div label.ylo-textarea-label {width: 550px; }
+.ylo-form-div label.ylo-textarea-label, .ylo-form-div label.ylo-large-label {
+	width: 600px; 
+	display: block;
+}
+.ylo-form-div label.ylo-large-label + input {
+	margin-left: 175px;
+}
+
+.ylo-form-div input.ylo-checkbox {
+	display : inline-block;
+	width: 2em;
+	margin: 0;
+	padding: 0;
+	height: 2em;
+	float: left;
+}
+
+.ylo-form-div label.ylo-checkbox-label {
+	width: 600px;
+	display: inline;
+	text-transform: none;
+	font-weight: bold;
+	float: none;
+}
+
+.ylo-inscription .ylo-form-top-line {
+	width: 620px;
+	border-top: 1px #ccc solid;
+}
 
 .ylo-form-div input{width: 300px;}
 .ylo-form-div input.ylo-checkbox {width: 2em;}
@@ -1078,7 +1114,7 @@ h3.ylo-titre-editor {
 
 /* sytles du Footer */
 #ylo-page-footer {
-	width: 650px;
+	width: 980px;
 	margin: 10px auto 20px;
 	background: #f8de72;
 	border-radius: 5px;
@@ -1141,7 +1177,10 @@ h3.ylo-titre-editor {
 	color: #48941A;
 }
 
-
+.admin-bar #intro {
+	position: relative;
+	top: -32px;
+}
 
 #intro .logo{
 	background: url(images/logo.png) 50% 0 no-repeat fixed;
