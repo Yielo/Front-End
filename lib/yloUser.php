@@ -13,13 +13,17 @@ class yloUser
 			'ylo_user_pass'		=>	'',
 			'ylo_first_name'	=>	'',
 			'ylo_last_name'		=>	'',
+			'ylo_metier'		=>	'',
+			'user_url'			=>	'',
 			'ylo_eglise' 		=> '',
 			'ylo_ville' 		=> '',
 			'ylo_pays' 			=> '',
 			'ylo_competences' 	=> '',
 			'ylo_formation' 	=> '',
 			'ylo_experiences_pro' => '',
-			'ylo_temoignage'	=> '',
+			'ylo_projet_realises'	=>	'',
+			'ylo_temoignage'	=>	'',
+			'description'		=>	'',
 			'ylo_avatar_upload' => '',
 		);
 	
@@ -138,6 +142,14 @@ class yloUser
 		return $this->setRequiredTextField('ylo_last_name', 'Le nom de famille', $nom );
 	}
 	
+	public function setMetier($metier){
+		return $this->setSimpleTextField( 'ylo_metier',  $metier);
+	}
+	
+	public function setUserUrl($url){
+		return $this->setSimpleTextField( 'user_url', esc_url($url));
+	}
+	
 	public function setVille($ville){
 		return $this->setSimpleTextField( 'ylo_ville',  $ville);
 	}
@@ -162,8 +174,16 @@ class yloUser
 		return $this->setSimpleTextField( 'ylo_experiences_pro',  $experiences);
 	}
 	
+	public function setProjetsRealises($projets){
+		return $this->setSimpleTextField( 'ylo_projet_realises',  $projets);
+	}
+	
 	public function setTemoignage($temoignage){
 		return $this->setSimpleTextField( 'ylo_temoignage',  $temoignage);
+	}
+	
+	public function setDescription($autres_infos){
+		return $this->setSimpleTextField( 'description',  $autres_infos);
 	}
 	
 	public function setAvatar($avatarURL, $errors = array() ){
@@ -190,12 +210,16 @@ class yloUser
 					'user_email'	=>	$this->user_info['ylo_user_email'],
 					'first_name'	=>	$this->user_info['ylo_first_name'],
 					'last_name'		=>	$this->user_info['ylo_last_name'],
+					'user_url'		=>	$this->user_info['user_url'],
+					'description'		=>	$this->user_info['description'],
+					'ylo_metier'	=>	$this->user_info['ylo_metier'],
 					'ylo_ville'		=>	$this->user_info['ylo_ville'],
 					'ylo_pays'		=>	$this->user_info['ylo_pays'],
 					'ylo_eglise'	=>	$this->user_info['ylo_eglise'],
 					'ylo_competences'	=>	$this->user_info['ylo_competences'],
 					'ylo_formation'		=>	$this->user_info['ylo_formation'],
 					'ylo_experiences_pro'	=>	$this->user_info['ylo_experiences_pro'],
+					'ylo_projet_realises'	=>	$this->user_info['ylo_projet_realises'],
 					'ylo_temoignage'	=>	$this->user_info['ylo_temoignage'],
 					'ylo_avatar_upload'	=>	$this->user_info['ylo_avatar_upload'],
 			);
@@ -230,13 +254,17 @@ class yloUser
 		$this->user_info['ylo_user_pass']	= $user_data->user_pass  ;
 		$this->user_info['ylo_first_name']	= $user_data->first_name  ;
 		$this->user_info['ylo_last_name']	= $user_data->last_name  ;
+		$this->user_info['ylo_metier']		= $user_data->ylo_metier  ;
+		$this->user_info['user_url']		= $user_data->user_url ;
 		$this->user_info['ylo_ville']		= $user_data->ylo_ville  ;
 		$this->user_info['ylo_pays']		= $user_data->ylo_pays  ;
 		$this->user_info['ylo_eglise']		= $user_data->ylo_eglise  ;
 		$this->user_info['ylo_competences']	= $user_data->ylo_competences  ;
 		$this->user_info['ylo_formation']	= $user_data->ylo_formation  ;
 		$this->user_info['ylo_experiences_pro']	= $user_data->ylo_experiences_pro  ;
+		$this->user_info['ylo_projet_realises']	= $user_data->ylo_projet_realises  ;
 		$this->user_info['ylo_temoignage']	= $user_data->ylo_temoignage  ;
+		$this->user_info['description']		= $user_data->description  ;
 		$this->user_info['ylo_avatar_upload']	= $user_data->ylo_avatar_upload  ;
 		
 	}
@@ -250,6 +278,12 @@ class yloUser
 		
 		if(!empty($this->user_info[$champ])) return $this->user_info[$champ];
 		else return false;
+	}
+	
+	public function setCgError(){
+		$message =  __('Vous n&#39;avez pas accept&eacute; les conditions g&eacute;n&eacute;rales, 
+						vous devez les accepter pour vous inscrire');
+		$this->errors['ylo_conditions_generales'][] = $message;
 	}
 	
 	protected function setRequiredTextField($champ, $label, $valeur){
