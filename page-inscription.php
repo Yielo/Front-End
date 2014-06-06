@@ -122,6 +122,23 @@ $yloForm = apply_filters('ylo_signup_form', false );
 									<label for="ylo_first_name">Prénom *</label> 
 									<input type="text" name="ylo_first_name" id="ylo_first_name" value="<?php $yloForm->value('ylo_first_name'); ?>" placeholder="Pr&eacute;nom" />
 								</div>
+							</fieldset>
+							<fieldset>
+								<div class="ylo-form-div">
+									<?php $yloForm->displayError('ylo_metier'); ?>
+									<label class="ylo-large-label" for="ylo_metier">Ton m&eacute;tier ou ta qualit&eacute; * 
+										<br /><em class="ylo-small">(d&eacute;veloppeur, d&eacute;signer, webmaster, community-manager, sys-admin, porteur de projet, client, ... )</em>
+									</label> 
+									<input type="text" name="ylo_metier" id="ylo_metier" value="<?php $yloForm->value('ylo_metier'); ?>" placeholder="M&eacute;tier ou qualit&eacute;" />
+								</div>
+								
+								<div class="ylo-form-div">
+									<label for="user_url">Ton site web</label> 
+									<input type="text" name="user_url" id="user_url" value="<?php $yloForm->value('user_url'); ?>" placeholder="Ton site web"/>
+								</div>
+								
+							</fieldset>
+							<fieldset>
 								
 								<div class="ylo-form-div">
 									<label for="ylo_ville">Ville de r&eacute;sidence</label> 
@@ -134,7 +151,7 @@ $yloForm = apply_filters('ylo_signup_form', false );
 								</div>
 								
 								<div class="ylo-form-div">
-									<label for="ylo_eglise">Ton église</label> 
+									<label for="ylo_eglise">Ton &eacute;glise</label> 
 									<input type="text" name="ylo_eglise" id="ylo_eglise" value="<?php $yloForm->value('ylo_eglise'); ?>" placeholder="Ton &eacute;glise"/>
 								</div>
 								
@@ -143,7 +160,9 @@ $yloForm = apply_filters('ylo_signup_form', false );
 								
 								<div class="ylo-form-div">
 									<label class="ylo-textarea-label" for="ylo_competences">Tes domaines de comp&eacute;tence ou qualit&eacute;s</label>
-									<textarea rows="5" cols="15" name="ylo_competences" id="ylo_competences" placeholder="D&eacute;velloppeur, D&eacute;signer, Sys Amin, Community manager, Client ..."><?php $yloForm->value('ylo_competences'); ?></textarea>
+									<textarea rows="5" cols="15" name="ylo_competences" id="ylo_competences" 
+										placeholder="Html, css, php, javasript, java, photoshop, graphiste, linux, python, wordpress, synfony, jquery, gestion de projet, visionnaire, enthousiaste ..."
+									><?php $yloForm->value('ylo_competences'); ?></textarea>
 								</div>
 								
 								<div class="ylo-form-div">
@@ -155,10 +174,20 @@ $yloForm = apply_filters('ylo_signup_form', false );
 									<label class="ylo-textarea-label" for="ylo_experiences_pro">Experience professionnelle</label>
 									<textarea rows="5" cols="15" name="ylo_experiences_pro" id="ylo_experiences_pro"><?php $yloForm->value('ylo_experiences_pro'); ?></textarea>
 								</div>
+
+								<div class="ylo-form-div">
+									<label class="ylo-textarea-label" for="ylo_projet_realises">Projets r&eacute;alis&eacute; <em>(Seul ou avec d'autres personnes)</em></label>
+									<textarea rows="5" cols="15" name="ylo_projet_realises" id="ylo_projet_realises"><?php $yloForm->value('ylo_projet_realises'); ?></textarea>
+								</div>
 								
 								<div class="ylo-form-div">
-									<label class="ylo-textarea-label" for="ylo_temoignage">Témoignage</label>
-									<textarea rows="5" cols="15" name="ylo_temoignage" id="ylo_temoignage" placeholder="Un court résumé..."><?php $yloForm->value('ylo_temoignage'); ?></textarea>
+									<label class="ylo-textarea-label" for="ylo_temoignage">T&eacute;moignage</label>
+									<textarea rows="5" cols="15" name="ylo_temoignage" id="ylo_temoignage" placeholder="Un court r&eacute;sum&eacute;..."><?php $yloForm->value('ylo_temoignage'); ?></textarea>
+								</div>
+								
+								<div class="ylo-form-div">
+									<label class="ylo-textarea-label" for="description">Coordonn&eacute;es et autres infos</label>
+									<textarea rows="5" cols="15" name="description" id="description" placeholder="N° de t&eacute;l&eacute;phone, freelance, soci&eacute;t&eacute;, association, etc ..."><?php $yloForm->value('description'); ?></textarea>
 								</div>
 								
 								<div class="ylo-form-div">
@@ -167,6 +196,15 @@ $yloForm = apply_filters('ylo_signup_form', false );
 									<?php $yloForm->avatarValue('ylo_avatar_upload', 'ylo_avatar_existant', 'ylo_supprimer_avatar'); ?>
 									
 									<input type="file" name="ylo_avatar_upload" id="ylo_avatar_upload" />
+								</div>
+							</fieldset>
+							<fieldset class="ylo-form-top-line">
+								<div class="ylo-form-div">
+									<?php $yloForm->displayError('ylo_conditions_generales'); ?>
+									<input type="checkbox" name="ylo_conditions_generales" class="ylo-checkbox" value="accepted"/>
+									<label class="ylo-checkbox-label" for="ylo_conditions_generales">
+										<?php $yloForm->conditionsGenerales();?>
+									</label>
 								</div>
 								
 								<div class="ylo-form-div form-submit ">
