@@ -121,7 +121,7 @@ h1.ylo-main-titre {
 	width: 700px;
 }
 
-.ylo-postnmail-setting .ylo-text-field{
+.ylo-postnmail-setting input.ylo-text-field{
 	width: 300px;
 	display: inline-block;
 }
