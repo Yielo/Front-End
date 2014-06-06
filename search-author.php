@@ -5,7 +5,7 @@
  * 
  */
 
-
+do_action('ylo_search_hooks');
 ?><?php get_header(); ?>
 
 	<div id="ylo-page">
