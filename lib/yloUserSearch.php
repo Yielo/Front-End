@@ -78,13 +78,16 @@ class yloUserSearch
 					OR meta_key = 'nickname'
 					OR meta_key = 'user_email'
 					OR meta_key = 'user_login'
+					OR meta_key = 'user_url'
+					OR meta_key = 'description'
+					OR meta_key = 'ylo_metier'
 					OR meta_key = 'ylo_ville'
 					OR meta_key = 'ylo_pays'
 					OR meta_key = 'ylo_competences'
 					OR meta_key = 'ylo_formation'
 					OR meta_key = 'ylo_experiences_pro'
 					OR meta_key = 'ylo_temoignage'
-					OR meta_key = 'ylo_ville'
+					OR meta_key = 'ylo_projet_realises'
 					OR meta_key = 'ylo_eglise'
 				)
 				AND meta_value LIKE %s", 
