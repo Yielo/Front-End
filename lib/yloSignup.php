@@ -65,6 +65,15 @@ class yloSignup
 		}
 	}
 	
+	public function conditionsGenerales(){
+		$ylo_divers = get_option('yielo_divers');
+		$cg = empty($ylo_divers['cg_label']) ? '' : $ylo_divers['cg_label'].'<br />';
+		$lien = empty($ylo_divers['cg_lien']) ? '': $ylo_divers['cg_lien'];
+		$url = empty($ylo_divers['cg_url']) ? '#': esc_url($ylo_divers['cg_url']);
+		if(empty($cg) && empty($lien)) $cg = __('Accepter les conditions g&eacute;n&eacute;rales du site');
+		echo $cg.'<a href="'.$url.'" target="_blank">'.$lien.'</a>';
+	}
+	
 	public function is_successfull_signup(){
 		if($this->new_user_id) return true;
 		else return false;
@@ -92,13 +101,17 @@ class yloSignup
 		if(!$this->user->setLastName($ylo_last_name)) $this->form_valide = false;
 
 		// les champs optionnels
+		$this->user->setMetier(isset($_POST['ylo_metier']) ? $_POST['ylo_metier'] : '');
+		$this->user->setUserUrl(isset($_POST['user_url']) ? $_POST['user_url'] : '');
 		$this->user->setVille(isset($_POST['ylo_ville']) ? $_POST['ylo_ville'] : '');
 		$this->user->setPays(isset($_POST['ylo_pays']) ? $_POST['ylo_pays'] : '');
 		$this->user->setEglise(isset($_POST['ylo_eglise']) ? $_POST['ylo_eglise'] : '');
 		$this->user->setCompetences(isset($_POST['ylo_competences']) ? $_POST['ylo_competences'] : '');
 		$this->user->setFormations(isset($_POST['ylo_formation']) ? $_POST['ylo_formation'] : '');
 		$this->user->setExperiencesPro(isset($_POST['ylo_experiences_pro']) ? $_POST['ylo_experiences_pro'] : '');
+		$this->user->setProjetsRealises(isset($_POST['ylo_projet_realises']) ? $_POST['ylo_projet_realises'] : '');
 		$this->user->setTemoignage(isset($_POST['ylo_temoignage']) ? $_POST['ylo_temoignage'] : '');
+		$this->user->setDescription(isset($_POST['description']) ? $_POST['description'] : '');
 		
 			// l'avatar est optionnel mais il peut y avoir une erreur de chargement
 		if(yloAvatarUploader::is_upload('ylo_avatar_upload')){
@@ -110,9 +123,16 @@ class yloSignup
 			$this->user->setAvatar((yloAvatarUploader::check_url($_POST['ylo_avatar_existant'])) ? $_POST['ylo_avatar_existant'] : '' );
 		}
 
+		// on vérifie les condtions générales
+		if(!isset($_POST['ylo_conditions_generales']) || $_POST['ylo_conditions_generales'] != 'accepted'){
+			$this->user->setCgError();
+			return false;
+		}
 	
 		if($this->form_valide) return $this->user->insertUser();
 		else return false;
 	}
+	
+	
 	
 }
