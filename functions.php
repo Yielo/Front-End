@@ -31,6 +31,9 @@ $yloC->add_filter('ylo_signup_form', 'yloSignup');
 //gère le formulaire de update de profil 
 $yloC->add_filter('ylo_update_form', 'yloProfile');
 
+// gère la suppression de membre 
+$yloC->add_action('ylo_delete_user', 'yloDeleteUser', 'delete_request');
+
 //gère les recherches de membres sur la page 'Recherche Memebre'
 $yloC->add_action('ylo_search_member', 'yloUserSearch', 'templatePartResultat', 10, 2 );
 // gère les crochets relatif aux recherches
