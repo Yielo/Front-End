@@ -46,7 +46,9 @@ class yloNewPost
 				<?php 
 			}else{
 				echo '<h2 class="ylo-titre-editor ylo-post-article"><span>Nouvel article :</span></h2>';
-				$this->editor( '', '', 'ylo_new_post_nonce');
+				$titre = empty($_POST['ylo-titre-editor']) ? '' : $_POST['ylo-titre-editor'];
+				$content = empty($_POST['ylo_editor_article']) ? '' : $_POST['ylo_editor_article'];
+				$this->editor( $titre, $content, 'ylo_new_post_nonce');
 			}			
 		}
 	}
@@ -119,7 +121,7 @@ class yloNewPost
 							<div class="ylo-edito-field">
 								<h3 class="ylo-titre-editor">Le contenu de l'article : </h3>
 							</div>
-							<?php wp_editor($content, 'ylo_editor_article', $edit_args);?>
+							<?php wp_editor(stripcslashes($content), 'ylo_editor_article', $edit_args);?>
 						</div>
 						<div class="ylo-nouvel-article">
 							<input type="submit" value="valider" />
@@ -138,8 +140,8 @@ class yloNewPost
 			if(count($this->erreurs) > 0 ) return false;
 			else{
 				$postdata = array(
-					  'post_content'   => sanitize_text_field($_POST['ylo_editor_article']),
-					  'post_title'     => sanitize_text_field($_POST['ylo_editor_post_title']),
+					  'post_content'   => strip_tags($_POST['ylo_editor_article'], '<b><strong><i><em><u><p><br><br/><ul><li><ol><h1><h2><h3><h4><h5><h6><hr><hr/><span><del><blockquote><address><pre><quote><code><a><table><tr><td><th><img>'),
+					  'post_title'     =>  sanitize_text_field($_POST['ylo_editor_post_title']),
 					  'post_status'    => 'publish' ,
 					  'post_type'      =>  'post' ,
 					  'post_author'    =>  get_current_user_id(),
@@ -162,9 +164,9 @@ class yloNewPost
 			if(count($this->erreurs) > 0 ) return false;
 			else{
 				$postdata = array(
-						'ID'			=> $ID,
-						'post_content'   => sanitize_text_field($_POST['ylo_editor_article']),
-						'post_title'     => sanitize_text_field($_POST['ylo_editor_post_title']),
+					'ID'			=> $ID,
+					'post_content'   => strip_tags($_POST['ylo_editor_article'], '<b><strong><i><em><u><p><br><br/><ul><li><ol><h1><h2><h3><h4><h5><h6><hr><hr/><span><del><blockquote><address><pre><quote><code><a><table><tr><td><th><img>'),
+					'post_title'     =>  sanitize_text_field($_POST['ylo_editor_post_title']),
 				);
 				
 				$edited = wp_update_post($postdata);
@@ -174,4 +176,6 @@ class yloNewPost
 			}
 		}else return false;
 	}
+	
+	
 }
