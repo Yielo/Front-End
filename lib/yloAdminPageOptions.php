@@ -309,7 +309,7 @@ class yloAdminPageOptions
 	public function front_textes_callback($front_textes){
 		$retour = array();
 		foreach($front_textes as $key => $value){
-			$retour[$key] = sanitize_text_field(nl2br($value));
+			$retour[$key] = esc_textarea(nl2br($value));
 		}
 		return $retour;
 	}
